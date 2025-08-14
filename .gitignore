@@ -1,0 +1,57 @@
+# =====================================
+# GITIGNORE PARA ARQUITETURA DRIVE DATA
+# BackEnd (Node.js) + FrontEnd (React/Vite)
+# =====================================
+
+# --- BACKEND ---
+BackEnd/node_modules/
+BackEnd/package-lock.json
+BackEnd/.env
+BackEnd/*.log
+BackEnd/npm-debug.log*
+BackEnd/yarn-debug.log*
+BackEnd/yarn-error.log*
+
+# --- FRONTEND ---
+FrontEnd/DriveData/node_modules/
+FrontEnd/DriveData/package-lock.json
+FrontEnd/DriveData/dist/
+FrontEnd/DriveData/.env
+FrontEnd/DriveData/.env.local
+FrontEnd/DriveData/*.log
+FrontEnd/DriveData/npm-debug.log*
+FrontEnd/DriveData/yarn-debug.log*
+FrontEnd/DriveData/yarn-error.log*
+
+# --- AMBIENTE ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- CACHE & TEMP ---
+.cache/
+tmp/
+temp/
+*.tmp
+
+# --- LOGS GERAIS ---
+logs/
+*.log
+*.gz
+
+# --- IDEs & SISTEMA ---
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# --- TESTES ---
+coverage/
+*.lcov
+
+# --- OUTROS ---
+*.swp
+*.swo

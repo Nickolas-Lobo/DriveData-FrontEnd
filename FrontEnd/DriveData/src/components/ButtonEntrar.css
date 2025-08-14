@@ -1,0 +1,15 @@
+#btnEntrar {
+    font-size: 3em;
+    width: 175px;
+    border: none;
+    background-color: #C62828;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+#btnEntrar:hover{
+    background-color: hsla(0, 66%, 47%, 0.89);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
