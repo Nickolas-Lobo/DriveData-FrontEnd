@@ -28,13 +28,14 @@ function PageCadastrarPeca() {
     { id: 9, id_automovel: "1", nome_peca: "Amortecedores", quilometragem_instalacao: "150000", quilometragem_maxima: "210000" },
     { id: 10, id_automovel: "1", nome_peca: "Bateria", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" }
   ];
-
+  
 
   useEffect(() => {
     setDadosTabela(manutencoes)
   }, [])
 
   const filtrar = (e) => {
+    e.preventDefault();
     let valorFiltrado = [...manutencoes];
     if (filtros.id) valorFiltrado = valorFiltrado.filter((p) => p.id == filtros.id);
     if (filtros.id_automovel) valorFiltrado = valorFiltrado.filter((p) => p.id_automovel == filtros.id_automovel);
@@ -55,6 +56,7 @@ function PageCadastrarPeca() {
                 <div className="form-group">
                   <label>Peça Trocada:</label>
                   <select
+                    className="select"
                     value={pecaTrocadaField}
                     onChange={(e) => setPecaTrocadaField(e.target.value)}
                   >
@@ -75,6 +77,7 @@ function PageCadastrarPeca() {
                 <div className="form-group">
                   <label>Quilometragem máxima:</label>
                   <input
+                    className="input"
                     value={quilometragemMaximaField}
                     type="text"
                     placeholder="Quilometragem máxima"
@@ -85,6 +88,7 @@ function PageCadastrarPeca() {
                 <div className="form-group">
                   <label>Data máxima de uso :</label>
                   <input
+                    className="input"
                     value={dataMaximaField}
                     type="text"
                     placeholder="Data máxima de uso"
@@ -100,6 +104,7 @@ function PageCadastrarPeca() {
             </fieldset>
           </form>
         </div>
+
         <div className='buscarManutencao'>
           <div className='inputs'>
 
@@ -133,7 +138,7 @@ function PageCadastrarPeca() {
                   <td>{row.quilometragem_maxima}</td>
                 </tr>
               ))}
-
+              
             </tbody>
           </table>
         </div>
