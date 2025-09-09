@@ -11,23 +11,24 @@ function PageCadastrarPeca() {
     id_automovel: "",
     nome_peca: "",
     quilometragem_instalacao: "",
-    quilometragem_maxima: ""
+    quilometragem_maxima: "",
+    data_maxima: ""
   })
 
   const [dadosTabela, setDadosTabela] = useState([]);
 
   const manutencoes = [
-    { id: 1, id_automovel: "1", nome_peca: "Filtro de Ar", quilometragem_instalacao: "150000", quilometragem_maxima: "165000" },
-    { id: 2, id_automovel: "1", nome_peca: "Óleo", quilometragem_instalacao: "150000", quilometragem_maxima: "160000" },
-    { id: 3, id_automovel: "1", nome_peca: "Filtro de Óleo", quilometragem_instalacao: "150000", quilometragem_maxima: "160000" },
-    { id: 4, id_automovel: "1", nome_peca: "Filtro de Combustível", quilometragem_instalacao: "150000", quilometragem_maxima: "170000" },
-    { id: 5, id_automovel: "1", nome_peca: "Pastilhas de Freio", quilometragem_instalacao: "150000", quilometragem_maxima: "165000" },
-    { id: 6, id_automovel: "1", nome_peca: "Pneus", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" },
-    { id: 7, id_automovel: "1", nome_peca: "Correia Dentada", quilometragem_instalacao: "150000", quilometragem_maxima: "210000" },
-    { id: 8, id_automovel: "1", nome_peca: "Velas de Ignição", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" },
-    { id: 9, id_automovel: "1", nome_peca: "Amortecedores", quilometragem_instalacao: "150000", quilometragem_maxima: "210000" },
-    { id: 10, id_automovel: "1", nome_peca: "Bateria", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" }
-  ];
+    { id: 1, id_automovel: "1", nome_peca: "Filtro de Ar", quilometragem_instalacao: "150000", quilometragem_maxima: "165000", data_maxima: "2026-03-01" },
+    { id: 2, id_automovel: "1", nome_peca: "Óleo", quilometragem_instalacao: "150000", quilometragem_maxima: "160000", data_maxima: "2026-01-15" },
+    { id: 3, id_automovel: "1", nome_peca: "Filtro de Óleo", quilometragem_instalacao: "150000", quilometragem_maxima: "160000", data_maxima: "2026-01-15" },
+    { id: 4, id_automovel: "1", nome_peca: "Filtro de Combustível", quilometragem_instalacao: "150000", quilometragem_maxima: "170000", data_maxima: "2026-06-10" },
+    { id: 5, id_automovel: "1", nome_peca: "Pastilhas de Freio", quilometragem_instalacao: "150000", quilometragem_maxima: "165000", data_maxima: "2026-04-20" },
+    { id: 6, id_automovel: "1", nome_peca: "Pneus", quilometragem_instalacao: "150000", quilometragem_maxima: "180000", data_maxima: "2027-02-01" },
+    { id: 7, id_automovel: "1", nome_peca: "Correia Dentada", quilometragem_instalacao: "150000", quilometragem_maxima: "210000", data_maxima: "2028-01-01" },
+    { id: 8, id_automovel: "1", nome_peca: "Velas de Ignição", quilometragem_instalacao: "150000", quilometragem_maxima: "180000", data_maxima: "2026-12-01" },
+    { id: 9, id_automovel: "1", nome_peca: "Amortecedores", quilometragem_instalacao: "150000", quilometragem_maxima: "210000", data_maxima: "2027-07-01" },
+    { id: 10, id_automovel: "1", nome_peca: "Bateria", quilometragem_instalacao: "150000", quilometragem_maxima: "180000", data_maxima: "2026-11-15" }
+  ];  
   
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function PageCadastrarPeca() {
     if (filtros.id) valorFiltrado = valorFiltrado.filter((p) => p.id == filtros.id);
     if (filtros.id_automovel) valorFiltrado = valorFiltrado.filter((p) => p.id_automovel == filtros.id_automovel);
     if (filtros.quilometragem_maxima) valorFiltrado = valorFiltrado.filter((p) => p.quilometragem_maxima == filtros.quilometragem_maxima);
+    if (filtros.data_maxima) valorFiltrado.filter((p) => p.data_maxima == filtros.data_maxima)
     setDadosTabela(valorFiltrado)
 
   }
@@ -126,6 +128,7 @@ function PageCadastrarPeca() {
                 <th>nome da peca</th>
                 <th>quilometragem instalacao</th>
                 <th>quilometragem maxima</th>
+                <th>data maxima</th>
               </tr>
             </thead>
             <tbody>
@@ -136,6 +139,7 @@ function PageCadastrarPeca() {
                   <td>{row.nome_peca}</td>
                   <td>{row.quilometragem_instalacao}</td>
                   <td>{row.quilometragem_maxima}</td>
+                  <td>{row.data_maxima}</td>
                 </tr>
               ))}
               

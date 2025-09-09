@@ -8,7 +8,6 @@ const PageAdicionarCarro = () => {
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
-  // libera objectURL para evitar memory leak
   useEffect(() => {
     return () => {
       if (preview) {
@@ -35,7 +34,6 @@ const PageAdicionarCarro = () => {
   const adicionarCarro = (e) => {
     e.preventDefault();
 
-    // validações simples
     if (!nomeVeiculo.trim()) {
       alert('Informe o nome do veículo.');
       return;
@@ -45,14 +43,12 @@ const PageAdicionarCarro = () => {
       return;
     }
 
-    // aqui você pode enviar para API ou state global
     console.log('Veículo adicionado:', {
       nomeVeiculo,
       quilometragem,
       imagem: imagem ? imagem.name : 'Nenhuma imagem selecionada',
     });
 
-    // limpa formulário
     setNomeVeiculo('');
     setQuilometragem('');
     setImagem(null);
