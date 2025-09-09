@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import './PageCadastrarPeca.css'
+import { MdDelete } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
+
+
 
 function PageCadastrarPeca() {
   const [pecaTrocadaField, setPecaTrocadaField] = useState("");
@@ -8,7 +12,7 @@ function PageCadastrarPeca() {
 
   const [filtros, setFiltros] = useState({
     id: "",
-    id_automovel: "",
+    nome_automovel: "",
     nome_peca: "",
     quilometragem_instalacao: "",
     quilometragem_maxima: "",
@@ -61,12 +65,11 @@ function PageCadastrarPeca() {
   const filtrar = (e) => {
     e.preventDefault();
     let valorFiltrado = [...manutencoes];
-    if (filtros.id) valorFiltrado = valorFiltrado.filter((p) => p.id == filtros.id);
-    if (filtros.id_automovel) valorFiltrado = valorFiltrado.filter((p) => p.id_automovel == filtros.id_automovel);
+    if (filtros.nome_peca) valorFiltrado = valorFiltrado.filter((p) => p.Nome_peca == filtros.nome_peca);
+    if (filtros.nome_automovel) valorFiltrado = valorFiltrado.filter((p) => p.Nome_automovel == filtros.nome_automovel);
     if (filtros.quilometragem_maxima) valorFiltrado = valorFiltrado.filter((p) => p.quilometragem_maxima == filtros.quilometragem_maxima);
     if (filtros.data_maxima) valorFiltrado.filter((p) => p.data_maxima == filtros.data_maxima)
     setDadosTabela(valorFiltrado)
-
   }
 
   return (
@@ -128,11 +131,11 @@ function PageCadastrarPeca() {
         <div className='buscarManutencao'>
           <div className='inputs'>
 
-            <input type="text" className='input' placeholder='id' value={filtros.id} onChange={(e) => setFiltros({ ...filtros, id: e.target.value })} />
+            <input type="text" className='input' placeholder='Nome do Automóvel' value={filtros.nome_automovel} onChange={(e) => setFiltros({ ...filtros, nome_automovel: e.target.value })} />
 
-            <input type="text" className='input' placeholder='automovel' value={filtros.id_automovel} onChange={(e) => setFiltros({ ...filtros, id_automovel: e.target.value })} />
+            <input type="text" className='input' placeholder='Nome da Peça' value={filtros.nome_peca} onChange={(e) => setFiltros({ ...filtros, nome_peca: e.target.value })} />
 
-            <input type="text" className='input' placeholder='quilometragem_maxima' value={filtros.quilometragem_maxima} onChange={(e) => setFiltros({ ...filtros, quilometragem_maxima: e.target.value })} />
+            <input type="text" className='input' placeholder='Quilometragem Máxima' value={filtros.quilometragem_maxima} onChange={(e) => setFiltros({ ...filtros, quilometragem_maxima: e.target.value })} />
 
             <button className='buttons' id='filtrar' onClick={filtrar}>Filtrar</button>
 
@@ -141,15 +144,25 @@ function PageCadastrarPeca() {
           <table>
             <thead>
               <tr>
-                <th>automovel</th>
-                <th>nome da peca</th>
-                <th>quilometragem instalacao</th>
-                <th>quilometragem maxima</th>
-                <th>data maxima</th>
+                <th>Nome do Automóvel</th>
+                <th>Nome da Peça</th>
+                <th>Quilometragem da Instalacao</th>
+                <th>Quilometragem Máxima</th>
+                <th>Data Máxima</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {dadosTabela.map((row, index) => (
+              {dadosTabela.length===0 ? manutencoes.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.Nome_automovel}</td>
+                  <td>{row.Nome_peca}</td>
+                  <td>{row.quilometragem_instalacao}</td>
+                  <td>{row.quilometragem_maxima}</td>
+                  <td>{row.data_maxima}</td>
+                  <td><MdDelete/>  <GrUpdate/> </td>
+                </tr>
+              )): dadosTabela.map((row, index) => (
                 <tr key={index}>
                   <td>{row.Nome_automovel}</td>
                   <td>{row.Nome_peca}</td>
