@@ -120,3 +120,8 @@ tbody tr:hover {
   gap: 15px;
   margin-bottom: 25px;
 }
+
+#filtrar{
+  margin-top: 5px;
+  height: 30px;
+}
