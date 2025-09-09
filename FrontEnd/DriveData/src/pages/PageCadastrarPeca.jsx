@@ -16,23 +16,46 @@ function PageCadastrarPeca() {
 
   const [dadosTabela, setDadosTabela] = useState([]);
 
-  const manutencoes = [
-    { id: 1, id_automovel: "1", nome_peca: "Filtro de Ar", quilometragem_instalacao: "150000", quilometragem_maxima: "165000" },
-    { id: 2, id_automovel: "1", nome_peca: "Óleo", quilometragem_instalacao: "150000", quilometragem_maxima: "160000" },
-    { id: 3, id_automovel: "1", nome_peca: "Filtro de Óleo", quilometragem_instalacao: "150000", quilometragem_maxima: "160000" },
-    { id: 4, id_automovel: "1", nome_peca: "Filtro de Combustível", quilometragem_instalacao: "150000", quilometragem_maxima: "170000" },
-    { id: 5, id_automovel: "1", nome_peca: "Pastilhas de Freio", quilometragem_instalacao: "150000", quilometragem_maxima: "165000" },
-    { id: 6, id_automovel: "1", nome_peca: "Pneus", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" },
-    { id: 7, id_automovel: "1", nome_peca: "Correia Dentada", quilometragem_instalacao: "150000", quilometragem_maxima: "210000" },
-    { id: 8, id_automovel: "1", nome_peca: "Velas de Ignição", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" },
-    { id: 9, id_automovel: "1", nome_peca: "Amortecedores", quilometragem_instalacao: "150000", quilometragem_maxima: "210000" },
-    { id: 10, id_automovel: "1", nome_peca: "Bateria", quilometragem_instalacao: "150000", quilometragem_maxima: "180000" }
-  ];
-  
+  const [manutencoes, setManutencoes] = useState([]);
+
+  const [pecas, setPecas] = useState([])
 
   useEffect(() => {
-    setDadosTabela(manutencoes)
+    async function buscarPecas() {
+      fetch("http://localhost:3000/pecas", {
+        method: "GET"
+      })
+        .then(resposta => {
+          if (!resposta.ok) throw new Error("Erro ao carregar as peças");
+          return resposta.json();
+        })
+        .then(dados => {
+          setPecas(dados)
+          console.log(dados); // para debug
+        })
+        .catch(err => console.log(err))
+    }
+    buscarPecas()
   }, [])
+
+  useEffect(()=>{
+    async function pegarManutencoes(){
+      fetch("http://localhost:3000/",{
+        method: "GET"
+      })
+      .then(resposta => {
+        if (!resposta.ok) throw new Error("Erro ao carregar as peças");
+        return resposta.json();
+      })
+      .then(dados => {
+        setManutencoes(dados)
+        console.log(dados); // para debug
+      })
+      .catch(err => console.log(err))
+    }
+    pegarManutencoes() 
+  },[])
+
 
   const filtrar = (e) => {
     e.preventDefault();
@@ -60,17 +83,12 @@ function PageCadastrarPeca() {
                     value={pecaTrocadaField}
                     onChange={(e) => setPecaTrocadaField(e.target.value)}
                   >
-                    <option value="">Selecione...</option>
-                    <option value="0">Filtro de Ar</option>
-                    <option value="1">Óleo</option>
-                    <option value="2">Filtro de Óleo</option>
-                    <option value="3">Filtro de Combustível</option>
-                    <option value="4">Pastilha de Freio</option>
-                    <option value="5">Pneus</option>
-                    <option value="6">Correia Dentada</option>
-                    <option value="7">Velas de Ignição</option>
-                    <option value="8">Amortecedores</option>
-                    <option value="9">Bateria</option>
+                    <option value="">Selecione uma peça</option> {/* Opcional: opção padrão */}
+                    {pecas.map((peca,indx) => (
+                      <option key={indx} value={peca.id}>
+                        {peca.nome_peca}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -121,7 +139,6 @@ function PageCadastrarPeca() {
           <table>
             <thead>
               <tr>
-                <th>id</th>
                 <th>automovel</th>
                 <th>nome da peca</th>
                 <th>quilometragem instalacao</th>
@@ -131,14 +148,13 @@ function PageCadastrarPeca() {
             <tbody>
               {dadosTabela.map((row, index) => (
                 <tr key={index}>
-                  <td>{row.id}</td>
-                  <td>{row.id_automovel}</td>
-                  <td>{row.nome_peca}</td>
+                  <td>{row.Nome_automovel}</td>
+                  <td>{row.Nome_peca}</td>
                   <td>{row.quilometragem_instalacao}</td>
                   <td>{row.quilometragem_maxima}</td>
                 </tr>
               ))}
-              
+
             </tbody>
           </table>
         </div>
