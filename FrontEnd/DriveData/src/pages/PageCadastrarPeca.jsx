@@ -132,7 +132,7 @@ function PageCadastrarPeca() {
 
             <input type="text" className='input' placeholder='quilometragem_maxima' value={filtros.quilometragem_maxima} onChange={(e) => setFiltros({ ...filtros, quilometragem_maxima: e.target.value })} />
 
-            <button className='buttons' onClick={filtrar}>Filtrar</button>
+            <button className='buttons' id='filtrar' onClick={filtrar}>Filtrar</button>
 
           </div>
 
