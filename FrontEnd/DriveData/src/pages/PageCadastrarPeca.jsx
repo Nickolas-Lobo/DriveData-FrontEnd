@@ -68,7 +68,7 @@ function PageCadastrarPeca() {
 
   useEffect(() => {
     async function pegarManutencoes() {
-      fetch("http://localhost:3000/", {
+      fetch("http://localhost:3000/manutencoes", {
         method: "GET"
       })
         .then(resposta => {
@@ -91,7 +91,7 @@ function PageCadastrarPeca() {
       const [dia, mes, ano] = dataBR.split("/");
       return `${ano}-${mes}-${dia}`;
     }
-
+  
     function adicionarMeses(dataStr, meses) {
       const [dia, mes, ano] = dataStr.split("/").map(Number);
       const data = new Date(ano, mes - 1, dia);
@@ -103,8 +103,12 @@ function PageCadastrarPeca() {
       
       return `${anoBD}-${mesBD}-${diaBD}`;
     }
-
-
+  
+    function formatarDataParaTela(dataBD) {
+      const [ano, mes, dia] = dataBD.split("-");
+      return `${dia}/${mes}/${ano}`;
+    }
+  
     const novamanutencao = {
       ID_automovel: Number(automovelSelecionado?.ID),
       Nome_automovel: automovelSelecionado?.nome_automovel,
@@ -112,11 +116,9 @@ function PageCadastrarPeca() {
       ID_peca: Number(pecaTrocadaField?.ID),
       Nome_peca: pecaTrocadaField?.nome_peca,
       quilometragem_maxima: parseFloat(quilometragemMaximaField),
-      data_maxima: adicionarMeses(dataInstalacao,dataMaximaField),
+      data_maxima: adicionarMeses(dataInstalacao, dataMaximaField),
       data_instalacao: formatarDataParaBD(dataInstalacao),
     };
-  
-    console.log("Nova manutenção:", novamanutencao);
   
     try {
       const resposta = await fetch("http://localhost:3000/manutencoes", {
@@ -124,20 +126,42 @@ function PageCadastrarPeca() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novamanutencao),
       });
-    
+  
       if (!resposta.ok) throw new Error("Erro ao cadastrar manutenção");
-    
+  
       const manutencaoCriada = await resposta.json();
-    
+  
+      // Formata as datas para o padrão de exibição
+      manutencaoCriada.data_instalacao = formatarDataParaTela(manutencaoCriada.data_instalacao);
+      manutencaoCriada.data_maxima = formatarDataParaTela(manutencaoCriada.data_maxima);
+  
       // Atualiza a tabela local
       setManutencoes((prev) => [...prev, manutencaoCriada]);
-    
       alert("Manutenção cadastrada com sucesso!");
     } catch (err) {
       console.log(err);
     }
   };
   
+  
+  const deletarManutencao = async (id) => {
+    fetch(`http://localhost:3000/manutencoes/${id}`,{
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then((res)=> {
+        if (!res.ok) throw new Error ("Erro ao deletar manutenção")
+        return res.json();
+      })
+      .then((resposta) => {
+        setManutencoes(prev => prev.filter(m => m.ID !== id));
+        setDadosTabela(prev => prev.filter(m => m.ID !== id));
+        alert(resposta.mensagem);
+      })
+      .catch((err)=>{
+        console.error(err)
+      })
+  }
 
 
 
@@ -267,7 +291,7 @@ function PageCadastrarPeca() {
                     <td>{row.quilometragem_maxima}</td>
                     <td>{row.data_maxima}</td>
                     <td className="icons">
-                      <MdDelete className="delete-icon" />
+                      <MdDelete onClick={()=>deletarManutencao(row.ID)} className="delete-icon" />
                       <GrUpdate className="update-icon" />
                     </td>
                   </tr>
