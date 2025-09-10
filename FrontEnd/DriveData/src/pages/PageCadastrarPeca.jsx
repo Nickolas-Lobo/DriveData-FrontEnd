@@ -3,13 +3,16 @@ import './PageCadastrarPeca.css'
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 
-
+const now = new Date();
+const dataFormatada = now.toLocaleDateString('pt-BR')
 
 function PageCadastrarPeca() {
-  const [veiculoSelecionado, setVeiculoSelecionado] = useState("");
+  const [automovelSelecionado, setAutomovelSelecionado] = useState("");
   const [pecaTrocadaField, setPecaTrocadaField] = useState("");
   const [quilometragemMaximaField, setQuilometragemMaximaField] = useState("");
   const [dataMaximaField, setDataMaximaField] = useState("");
+  const [dataInstalacao, setDataInstalacao] = useState(dataFormatada)
+
 
   const [filtros, setFiltros] = useState({
     id: "",
@@ -24,7 +27,27 @@ function PageCadastrarPeca() {
 
   const [manutencoes, setManutencoes] = useState([]);
 
-  const [pecas, setPecas] = useState([])
+  const [pecas, setPecas] = useState([]);
+
+  const [automoveis, setAutomoveis] = useState([]);
+
+
+  useEffect(() => {
+    async function buscarAutomoveis() {
+      fetch("http://localhost:3000/automoveis", {
+        method: "GET"
+      })
+        .then(resposta => {
+          if (!resposta.ok) throw new Error("Erro ao carregar os automoveis");
+          return resposta.json();
+        })
+        .then(dados => {
+          setAutomoveis(dados);
+        })
+        .catch(err => console.log(err))
+    }
+    buscarAutomoveis()
+  },[])
 
   useEffect(() => {
     async function buscarPecas() {
@@ -37,7 +60,6 @@ function PageCadastrarPeca() {
         })
         .then(dados => {
           setPecas(dados)
-          console.log(dados); // para debug
         })
         .catch(err => console.log(err))
     }
@@ -55,12 +77,69 @@ function PageCadastrarPeca() {
         })
         .then(dados => {
           setManutencoes(dados)
-          console.log(dados); // para debug
+
         })
         .catch(err => console.log(err))
     }
     pegarManutencoes()
   }, [])
+
+  const criarManutencao = async (e) => {
+    e.preventDefault();
+  
+    function formatarDataParaBD(dataBR) {
+      const [dia, mes, ano] = dataBR.split("/");
+      return `${ano}-${mes}-${dia}`;
+    }
+
+    function adicionarMeses(dataStr, meses) {
+      const [dia, mes, ano] = dataStr.split("/").map(Number);
+      const data = new Date(ano, mes - 1, dia);
+      data.setMonth(data.getMonth() + Number(meses));
+      
+      const anoBD = data.getFullYear();
+      const mesBD = String(data.getMonth() + 1).padStart(2, "0");
+      const diaBD = String(data.getDate()).padStart(2, "0");
+      
+      return `${anoBD}-${mesBD}-${diaBD}`;
+    }
+
+
+    const novamanutencao = {
+      ID_automovel: Number(automovelSelecionado?.ID),
+      Nome_automovel: automovelSelecionado?.nome_automovel,
+      quilometragem_instalacao: parseFloat(automovelSelecionado?.quilometragem),
+      ID_peca: Number(pecaTrocadaField?.ID),
+      Nome_peca: pecaTrocadaField?.nome_peca,
+      quilometragem_maxima: parseFloat(quilometragemMaximaField),
+      data_maxima: adicionarMeses(dataInstalacao,dataMaximaField),
+      data_instalacao: formatarDataParaBD(dataInstalacao),
+    };
+  
+    console.log("Nova manutenção:", novamanutencao);
+  
+    try {
+      const resposta = await fetch("http://localhost:3000/manutencoes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(novamanutencao),
+      });
+    
+      if (!resposta.ok) throw new Error("Erro ao cadastrar manutenção");
+    
+      const manutencaoCriada = await resposta.json();
+    
+      // Atualiza a tabela local
+      setManutencoes((prev) => [...prev, manutencaoCriada]);
+    
+      alert("Manutenção cadastrada com sucesso!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
+
 
 
   const filtrar = (e) => {
@@ -84,25 +163,39 @@ function PageCadastrarPeca() {
               <div className='form-container'>
                 <div className='form-group'>
                   <label>Veículo:</label>
-                  <select className="select" value={veiculoSelecionado} onChange={(e) => setVeiculoSelecionado(e.target.value)}>
+                  <select
+                    className="select"
+                    value={automovelSelecionado?.ID || ""}
+                    onChange={(e) => {
+                      const auto = automoveis.find((a) => String(a.ID) === String(e.target.value));
+                      setAutomovelSelecionado(auto); // salva o objeto inteiro
+                      console.log("Selecionado:", auto);
+                    }}
+                  >
                     <option value="">Selecione o seu veículo</option>
-                    {/* {veiculos.map((veiculo, index) => (
-                      <option key={index} value={veiculo.id}>
-                        {veiculo.nome}
+                    {automoveis.map((veiculo) => (
+                      <option key={veiculo.ID} value={veiculo.ID}>
+                        {veiculo.nome_automovel} - {veiculo.quilometragem} km
                       </option>
-                    ))} */}
+                    ))}
                   </select>
                 </div>
+
+
                 <div className="form-group">
                   <label>Peça Trocada:</label>
                   <select
                     className="select"
-                    value={pecaTrocadaField}
-                    onChange={(e) => setPecaTrocadaField(e.target.value)}
+                    value={pecaTrocadaField?.ID || ""}
+                    onChange={(e) => {
+                      const pecasalva = pecas.find((a) => String(a.ID) === String(e.target.value));
+                      setPecaTrocadaField(pecasalva); // salva o objeto inteiro
+                      console.log("Selecionado:", pecasalva);
+                    }}
                   >
-                    <option value="">Selecione uma peça</option> {/* Opcional: opção padrão */}
-                    {pecas.map((peca, index) => (
-                      <option key={index} value={peca.id}>
+                    <option value="">Selecione o seu veículo</option>
+                    {pecas.map((peca) => (
+                      <option key={peca.ID} value={peca.ID}>
                         {peca.nome_peca}
                       </option>
                     ))}
@@ -121,7 +214,7 @@ function PageCadastrarPeca() {
                 </div>
 
                 <div className="form-group">
-                  <label>Data máxima de uso :</label>
+                  <label>Data máxima de uso (em Meses) :</label>
                   <input
                     className="input"
                     value={dataMaximaField}
@@ -132,7 +225,7 @@ function PageCadastrarPeca() {
                 </div>
 
                 <div className="form-actions">
-                  <button className='buttonCadastrar'>Cadastrar Manutenção</button>
+                  <button onClick={criarManutencao} className='buttonCadastrar'>Cadastrar Manutenção</button>
                 </div>
 
               </div>
