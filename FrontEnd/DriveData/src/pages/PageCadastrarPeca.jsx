@@ -246,42 +246,35 @@ function PageCadastrarPeca() {
 
           </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Nome do Automóvel</th>
-                <th>Nome da Peça</th>
-                <th>Quilometragem da Instalacao</th>
-                <th>Quilometragem Máxima</th>
-                <th>Data Máxima</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dadosTabela.length === 0 ? manutencoes.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.Nome_automovel}</td>
-                  <td>{row.Nome_peca}</td>
-                  <td>{row.quilometragem_instalacao}</td>
-                  <td>{row.quilometragem_maxima}</td>
-                  <td>{row.data_maxima}</td>
-                  <td className="icons">
-                    <MdDelete className="delete-icon" />
-                    <GrUpdate className="update-icon" />
-                  </td>
+          <div className="table-wrapper">
+            <table className="tabela-scroll">
+              <thead>
+                <tr>
+                  <th>Nome do Automóvel</th>
+                  <th>Nome da Peça</th>
+                  <th>Quilometragem da Instalação</th>
+                  <th>Quilometragem Máxima</th>
+                  <th>Data Máxima</th>
+                  <th>Ações</th>
                 </tr>
-              )) : dadosTabela.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.Nome_automovel}</td>
-                  <td>{row.Nome_peca}</td>
-                  <td>{row.quilometragem_instalacao}</td>
-                  <td>{row.quilometragem_maxima}</td>
-                  <td>{row.data_maxima}</td>
-                </tr>
-              ))}
-
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {(dadosTabela.length === 0 ? manutencoes : dadosTabela).map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.Nome_automovel}</td>
+                    <td>{row.Nome_peca}</td>
+                    <td>{row.quilometragem_instalacao}</td>
+                    <td>{row.quilometragem_maxima}</td>
+                    <td>{row.data_maxima}</td>
+                    <td className="icons">
+                      <MdDelete className="delete-icon" />
+                      <GrUpdate className="update-icon" />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

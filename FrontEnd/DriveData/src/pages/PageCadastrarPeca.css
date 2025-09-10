@@ -126,9 +126,37 @@ tbody tr:hover {
   height: 30px;
 }
 
+.table-wrapper {
+  max-height: 600px; 
+  overflow-y: auto; 
+}
+
+.tabela-scroll {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-scroll thead {
+  background-color: #C62828;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.tabela-scroll th,
+.tabela-scroll td {
+  padding: 10px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle; 
+}
+
 .icons {
-  display: flex;      
-  gap: 10px;   
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .delete-icon {
