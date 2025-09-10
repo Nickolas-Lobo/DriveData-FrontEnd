@@ -6,6 +6,7 @@ import { GrUpdate } from "react-icons/gr";
 
 
 function PageCadastrarPeca() {
+  const [veiculoSelecionado, setVeiculoSelecionado] = useState("");
   const [pecaTrocadaField, setPecaTrocadaField] = useState("");
   const [quilometragemMaximaField, setQuilometragemMaximaField] = useState("");
   const [dataMaximaField, setDataMaximaField] = useState("");
@@ -43,23 +44,23 @@ function PageCadastrarPeca() {
     buscarPecas()
   }, [])
 
-  useEffect(()=>{
-    async function pegarManutencoes(){
-      fetch("http://localhost:3000/",{
+  useEffect(() => {
+    async function pegarManutencoes() {
+      fetch("http://localhost:3000/", {
         method: "GET"
       })
-      .then(resposta => {
-        if (!resposta.ok) throw new Error("Erro ao carregar as peças");
-        return resposta.json();
-      })
-      .then(dados => {
-        setManutencoes(dados)
-        console.log(dados); // para debug
-      })
-      .catch(err => console.log(err))
+        .then(resposta => {
+          if (!resposta.ok) throw new Error("Erro ao carregar as peças");
+          return resposta.json();
+        })
+        .then(dados => {
+          setManutencoes(dados)
+          console.log(dados); // para debug
+        })
+        .catch(err => console.log(err))
     }
-    pegarManutencoes() 
-  },[])
+    pegarManutencoes()
+  }, [])
 
 
   const filtrar = (e) => {
@@ -81,6 +82,17 @@ function PageCadastrarPeca() {
               <legend> Adicionar Manutenção</legend>
 
               <div className='form-container'>
+                <div className='form-group'>
+                  <label>Veículo:</label>
+                  <select className="select" value={veiculoSelecionado} onChange={(e) => setVeiculoSelecionado(e.target.value)}>
+                    <option value="">Selecione o seu veículo</option>
+                    {/* {veiculos.map((veiculo, index) => (
+                      <option key={index} value={veiculo.id}>
+                        {veiculo.nome}
+                      </option>
+                    ))} */}
+                  </select>
+                </div>
                 <div className="form-group">
                   <label>Peça Trocada:</label>
                   <select
@@ -89,8 +101,8 @@ function PageCadastrarPeca() {
                     onChange={(e) => setPecaTrocadaField(e.target.value)}
                   >
                     <option value="">Selecione uma peça</option> {/* Opcional: opção padrão */}
-                    {pecas.map((peca,indx) => (
-                      <option key={indx} value={peca.id}>
+                    {pecas.map((peca, index) => (
+                      <option key={index} value={peca.id}>
                         {peca.nome_peca}
                       </option>
                     ))}
@@ -153,16 +165,19 @@ function PageCadastrarPeca() {
               </tr>
             </thead>
             <tbody>
-              {dadosTabela.length===0 ? manutencoes.map((row, index) => (
+              {dadosTabela.length === 0 ? manutencoes.map((row, index) => (
                 <tr key={index}>
                   <td>{row.Nome_automovel}</td>
                   <td>{row.Nome_peca}</td>
                   <td>{row.quilometragem_instalacao}</td>
                   <td>{row.quilometragem_maxima}</td>
                   <td>{row.data_maxima}</td>
-                  <td><MdDelete/>  <GrUpdate/> </td>
+                  <td className="icons">
+                    <MdDelete className="delete-icon" />
+                    <GrUpdate className="update-icon" />
+                  </td>
                 </tr>
-              )): dadosTabela.map((row, index) => (
+              )) : dadosTabela.map((row, index) => (
                 <tr key={index}>
                   <td>{row.Nome_automovel}</td>
                   <td>{row.Nome_peca}</td>

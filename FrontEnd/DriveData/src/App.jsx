@@ -7,10 +7,10 @@ import PageInicio from './pages/PageInicio'
 function App() {
   return (
     <div className='appConfig'>
-      {/* <PageLogin/> */}
-      {/* <PageAdicionarCarro/> */}
-      <PageCadastrarPeca/>
-      {/* <PageInicio/> */}
+      {<PageLogin/>}
+      {<PageAdicionarCarro/>}
+      {<PageCadastrarPeca/>}
+      {<PageInicio/>}
     </div>
   )
 }
