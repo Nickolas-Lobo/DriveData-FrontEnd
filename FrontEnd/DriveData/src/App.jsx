@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<PageLogin/>}/>
-          <Route path="/pageInicio" element={<PageCadastrarPeca/>}/>
+          <Route path="/pageInicio" element={<PageInicio/>}/>
         </Routes>
       </Router>
     </div>

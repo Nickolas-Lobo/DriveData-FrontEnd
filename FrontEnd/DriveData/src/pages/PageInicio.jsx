@@ -4,19 +4,30 @@ import React from 'react'
 const PageInicio = () => {
   return (
     <div className="backgroundInicio">
-        <div className="containerHead">
-            <h1>Modelo:</h1>
-            <span></span>
-            <h1>Kilometragem Atual:</h1>
-            <span></span>
-            <h1>Ultima Peça Trocada:</h1>
-            <span></span>
+      <div className="containerHead">
+        <div>
+          <img src="" alt="" />
         </div>
-        <button className="btnAdicionarPeca">Adicionar Peça</button>
-        
-        <div className="listaPecas">
+        <div>
+          <p>Modelo:</p>
+          <span></span>
+          <p>Quilometragem Atual:</p>
+          <span></span>
+          <p>Ultima Peça Trocada:</p>
+          <span></span>
+        </div>
+      </div>
+      <button className="btnAdicionarPeca">Adicionar Manutenção</button>
 
+      <div className="listaManutencoes">
+        <div className="titulo">
+          <h1>Minhas Manutenções</h1>
         </div>
+        <div className="">
+          <p>Nome_peca</p>
+          <p>Vida util</p>
+        </div>
+      </div>
     </div>
   )
 }
