@@ -1,49 +1,185 @@
-body{
-    height: 100vh
+body {
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(179deg, rgba(66, 66, 66, 1) 0%, rgba(181, 181, 181, 1) 100%);
 }
 
-.backgroundInicio{
-    width: 80%;
-    height: 85vh;
-    background-color: white;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 4%;
-    position: absolute;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-around;
+.backgroundInicio {
+  width: 80%;
+  height: 85vh;
+  background-color: white;
+  margin: 3em auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  gap: 2em;
 }
 
-.containerHead{
-    width:55%;
-    height:30vh;
-    background-color:#8d8d8d23;
-    margin-top:2%;
-    border-radius:7px;
-    text-align:center;
-
+.linhaSuperior {
+  width: 100%;
+  height: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.btnAdicionarPeca{
-    background-color: #cb3939;
-    border-style: none;
-    font-size: 150%;
-    width: 250px;
-    height: 70px;
-    border-radius: 7px;
-    margin-top: 10%;
+.containerHead {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2em;
 }
 
-.btnAdicionarPeca:hover{
-    background-color: #b63030;
+.containerInfos {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #8d8d8d23;
+  border-radius: 7px;
+  padding: 1.2em;
+  gap: 1.2em;
 }
 
-.listaPecas{
-    width: 60%;
-    height: 47vh;
-    border-radius:7px ;
-    background-color: #8d8d8d23;
-    position: absolute;
-    margin-top: 21.8%;
+.imagemVeiculo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagemVeiculo img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #ccc;
+}
+
+.dadosVeiculo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  text-align: left;
+}
+
+.dadosVeiculo p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.dadosVeiculo span {
+  margin-bottom: 0.4em;
+  color: #555;
+}
+
+.btnAdicionarPeca {
+  background-color: #cb3939;
+  border: none;
+  font-size: 1.1em;
+  width: 190px;
+  height: 55px;
+  border-radius: 7px;
+  align-self: center;
+  cursor: pointer;
+  margin-left: 1em;
+}
+
+.btnAdicionarPeca:hover {
+  background-color: #b63030;
+}
+
+.linhaInferior {
+  width: 100%;
+  height: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.listaManutencoes {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  background-color: #8d8d8d23;
+  padding: 1.2em;
+  position: relative;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 0.8em;
+}
+
+.titulo h1 {
+  margin: 0;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.scrollWrapper {
+  position: relative;
+  height: 230px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 20px;
+}
+
+.containerCards {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 1em;
+}
+
+.itemManutencao {
+  flex: 0 0 auto;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 200px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;    
+  padding: 1em;
+}
+
+.itemManutencao:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.itemManutencao p {
+  margin: 0.5em 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.imagemPeca {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagemPeca img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
