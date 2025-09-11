@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import PageLogin from './pages/PageLogin'
 import PageAdicionarCarro from './pages/PageAdicionarCarro'
@@ -7,10 +8,12 @@ import PageInicio from './pages/PageInicio'
 function App() {
   return (
     <div className='appConfig'>
-      {/* {<PageLogin/>} */}
-      {/* {<PageAdicionarCarro/>} */}
-      {<PageCadastrarPeca/>}
-      {/* {<PageInicio/>} */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<PageLogin/>}/>
+          <Route path="/pageInicio" element={<PageCadastrarPeca/>}/>
+        </Routes>
+      </Router>
     </div>
   )
 }

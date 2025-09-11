@@ -1,7 +1,8 @@
 import "./ButtonEntrar.css"
-const Button = ({texto}) => {
+
+const Button = ({onClick}) => {
   return (
-    <button id="btnEntrar">
+    <button onClick={onClick} id="btnEntrar">
         Entrar
     </button>
   )

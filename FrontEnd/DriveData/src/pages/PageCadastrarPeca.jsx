@@ -35,7 +35,9 @@ function PageCadastrarPeca() {
   useEffect(() => {
     async function buscarAutomoveis() {
       fetch("http://localhost:3000/automoveis", {
-        method: "GET"
+        method: "GET",
+        credentials: "include", 
+
       })
         .then(resposta => {
           if (!resposta.ok) throw new Error("Erro ao carregar os automoveis");
@@ -52,7 +54,9 @@ function PageCadastrarPeca() {
   useEffect(() => {
     async function buscarPecas() {
       fetch("http://localhost:3000/pecas", {
-        method: "GET"
+        method: "GET",
+        credentials: "include", 
+
       })
         .then(resposta => {
           if (!resposta.ok) throw new Error("Erro ao carregar as peças");
@@ -69,7 +73,9 @@ function PageCadastrarPeca() {
   useEffect(() => {
     async function pegarManutencoes() {
       fetch("http://localhost:3000/manutencoes", {
-        method: "GET"
+        method: "GET",
+        credentials: "include", 
+
       })
         .then(resposta => {
           if (!resposta.ok) throw new Error("Erro ao carregar as peças");
@@ -113,7 +119,7 @@ function PageCadastrarPeca() {
       ID_automovel: Number(automovelSelecionado?.ID),
       Nome_automovel: automovelSelecionado?.nome_automovel,
       quilometragem_instalacao: parseFloat(automovelSelecionado?.quilometragem),
-      ID_peca: Number(pecaTrocadaField?.ID),
+      ID_pecas: Number(pecaTrocadaField?.ID),
       Nome_peca: pecaTrocadaField?.nome_peca,
       quilometragem_maxima: parseFloat(quilometragemMaximaField),
       data_maxima: adicionarMeses(dataInstalacao, dataMaximaField),
@@ -125,6 +131,8 @@ function PageCadastrarPeca() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novamanutencao),
+        credentials: "include", 
+
       });
   
       if (!resposta.ok) throw new Error("Erro ao cadastrar manutenção");
@@ -147,7 +155,9 @@ function PageCadastrarPeca() {
   const deletarManutencao = async (id) => {
     fetch(`http://localhost:3000/manutencoes/${id}`,{
       method: "DELETE",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", 
+
     })
       .then((res)=> {
         if (!res.ok) throw new Error ("Erro ao deletar manutenção")
