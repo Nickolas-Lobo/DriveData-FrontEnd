@@ -30,7 +30,7 @@ const PageLogin = () => {
       }
 
       alert(data.mensagem);
-      navigate("/pageInicio");
+      navigate("/pageInicio", { state: { idUsuario: data.user.ID } });
     }catch(err) {
       console.error("Erro no login:",err);
       alert("Número autenticador não encontrado")
