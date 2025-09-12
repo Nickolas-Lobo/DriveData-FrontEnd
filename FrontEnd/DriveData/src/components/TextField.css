@@ -1,9 +1,18 @@
 input {
-    border-radius: 10px;
-    border: none;
-    width: 250px;
-    height: 30px;
-    font-size: 1em;
-    text-align: center;
-    margin-top: 15px;
+  width: 70%;
+  max-width: 400px;
+  height: 40px;
+  padding: 10px;
+  font-size: 1em;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  margin-top: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #1976D2;
 }

@@ -1,15 +1,18 @@
 #btnEntrar {
-    font-size: 3em;
-    width: 175px;
-    border: none;
-    background-color: #C62828;
-    border-radius: 15px;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    color: rgb(44, 46, 46);
+  width: 70%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 1.5em;
+  border: none;
+  background-color: #C62828;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: rgb(255, 255, 255);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#btnEntrar:hover{
-    background-color: hsla(0, 66%, 47%, 0.89);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
+#btnEntrar:hover {
+  background-color: hsla(0, 66%, 47%, 0.89);
+  transform: scale(1.02);
+}
