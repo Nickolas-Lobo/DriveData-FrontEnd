@@ -18,7 +18,7 @@ body {
 
 .linhaSuperior {
   width: 100%;
-  height: 35%;
+  height: 40%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -27,6 +27,7 @@ body {
 
 .containerHead {
   width: 100%;
+  height: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -94,7 +95,7 @@ body {
 
 .linhaInferior {
   width: 100%;
-  height: 65%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   gap: 1.2em;
@@ -127,10 +128,12 @@ body {
 
 .scrollWrapper {
   position: relative;
-  height: 230px;
+  height: 340px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 20px;
+  padding-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: -50px;
 }
 
 .containerCards {
@@ -148,8 +151,8 @@ body {
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 300px; 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
