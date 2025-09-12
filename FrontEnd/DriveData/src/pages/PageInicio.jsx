@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 
-
 const PageInicio = () => {
   const [automoveis, setAutomoveis] = useState([]);
   const location = useLocation();
@@ -12,6 +11,23 @@ const PageInicio = () => {
   const { idUsuario } = location.state || {};
   const [ultimasManutencoes, setUltimasManutencoes] = useState([]);
 
+  const lista_imagem_pecas=[
+  <img src="Fluído_de_motor.png" alt="Imagem da peca" />,
+  <img src="Fluído_de_freio.png" alt="Imagem da peca" />,
+  <img src="Fluído_de_direção.png" alt="Imagem da peca" />,
+  <img src="filtro_de_ar.png" alt="Imagem da peca" />,
+  <img src="Filtro_de_oleo.png" alt="Imagem da peca" />,
+  <img src="Filtro_de_combustivel.png" alt="Imagem da peca" />,
+  <img src="Filtro_de_cabine.png" alt="Imagem da peca" />,
+  <img src="pneus.png" alt="Imagem da peca" />,
+  <img src="Pastilhas_de_freio.png" alt="Imagem da peca" />,
+  <img src="discos_de_freio.png" alt="Imagem da peca" />,
+  <img src="bateria.png" alt="Imagem da peca" />,
+  <img src="Correia_dentada.png" alt="Imagem da peca" />,
+  <img src="vela_ignição.png" alt="Imagem da peca" />,
+  <img src="amortecedor.png" alt="Imagem da peca" />,
+  <img src="Corrente_de_comando.png" alt="Imagem da peca" />,
+]
 
   useEffect(() => {
     async function buscarAutomoveis() {
@@ -85,7 +101,7 @@ const PageInicio = () => {
                   <p>{manu.Nome_peca}</p>
 
                   <div className="imagemPeca">
-                  <img src="" alt="Imagem da peca" /> 
+                  {lista_imagem_pecas[manu.ID_pecas-1]}
                   </div>
 
                   <p>Vida útil</p>
