@@ -124,7 +124,7 @@ function PageCadastrarPeca() {
     const novamanutencao = {
       ID_automovel: Number(automoveis.ID),
       Nome_automovel: automoveis.nome_automovel,
-      quilometragem_instalacao: parseFloat(automoveis.quilometragem),
+      quilometragem_instalacao:(automoveis.quilometragem),
       ID_pecas: Number(pecaTrocadaField?.ID),
       Nome_peca: pecaTrocadaField?.nome_peca,
       quilometragem_maxima: parseFloat(quilometragemMaximaField),
@@ -211,7 +211,7 @@ function PageCadastrarPeca() {
                     }}
                   >
 
-                    <option>{automoveis.nome_automovel}</option>     
+                    <option>Modelo: {automoveis.nome_automovel}- KM:{automoveis.quilometragem} </option>     
                   </select>
                 </div>
 
