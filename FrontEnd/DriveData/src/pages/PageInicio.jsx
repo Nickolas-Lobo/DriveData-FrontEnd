@@ -1,7 +1,7 @@
 import "./PageInicio.css"
 import React from 'react'
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const PageInicio = () => {
@@ -10,6 +10,7 @@ const PageInicio = () => {
   const [idAutomovel, setIdAutomovel] = useState(null);
   const { idUsuario } = location.state || {};
   const [ultimasManutencoes, setUltimasManutencoes] = useState([]);
+  const navigate=useNavigate();
 
   const lista_imagem_pecas=[
   <img src="Fluído_de_motor.png" alt="Imagem da peca" />,
@@ -84,7 +85,7 @@ const PageInicio = () => {
 
             </div>
           </div>
-          <button className="btnAdicionarPeca">Adicionar Manutenção</button>
+          <button className="btnAdicionarPeca"   onClick={() => navigate("/pageCadastrarManutencao", { state: { idUsuario: idUsuario} })}>Adicionar Manutenção</button>
         </div>
       </div>
 

@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PageLogin/>}/>
           <Route path="/pageInicio" element={<PageInicio/>}/>
+          <Route path="/pageCadastrarManutencao" element={<PageCadastrarPeca/>}/>
         </Routes>
       </Router>
     </div>

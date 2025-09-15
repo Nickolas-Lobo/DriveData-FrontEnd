@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import './PageCadastrarPeca.css'
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
+import { useLocation } from "react-router-dom";
+
 
 const now = new Date();
 const dataFormatada = now.toLocaleDateString('pt-BR')
@@ -12,7 +14,8 @@ function PageCadastrarPeca() {
   const [quilometragemMaximaField, setQuilometragemMaximaField] = useState("");
   const [dataMaximaField, setDataMaximaField] = useState("");
   const [dataInstalacao, setDataInstalacao] = useState(dataFormatada)
-
+  const location = useLocation();
+  const { idUsuario } = location.state || {};
 
   const [filtros, setFiltros] = useState({
     id: "",
@@ -31,12 +34,14 @@ function PageCadastrarPeca() {
 
   const [automoveis, setAutomoveis] = useState([]);
 
+  const [idAutomovel, setIdAutomovel] = useState([]);
+
 
   useEffect(() => {
     async function buscarAutomoveis() {
-      fetch("http://localhost:3000/automoveis", {
+      fetch(`http://localhost:3000/automoveis/${idUsuario}`, {
         method: "GET",
-        credentials: "include", 
+        credentials: "include",
 
       })
         .then(resposta => {
@@ -45,11 +50,12 @@ function PageCadastrarPeca() {
         })
         .then(dados => {
           setAutomoveis(dados);
+          setIdAutomovel(dados.ID)
         })
         .catch(err => console.log(err))
     }
     buscarAutomoveis()
-  },[])
+  }, [])
 
   useEffect(() => {
     async function buscarPecas() {
@@ -72,7 +78,7 @@ function PageCadastrarPeca() {
 
   useEffect(() => {
     async function pegarManutencoes() {
-      fetch("http://localhost:3000/manutencoes", {
+      fetch(`http://localhost:3000/manutencoes/${idAutomovel}`, {
         method: "GET",
         credentials: "include", 
 
@@ -88,7 +94,7 @@ function PageCadastrarPeca() {
         .catch(err => console.log(err))
     }
     pegarManutencoes()
-  }, [])
+  }, [idAutomovel])
 
   const criarManutencao = async (e) => {
     e.preventDefault();
@@ -116,9 +122,9 @@ function PageCadastrarPeca() {
     }
   
     const novamanutencao = {
-      ID_automovel: Number(automovelSelecionado?.ID),
-      Nome_automovel: automovelSelecionado?.nome_automovel,
-      quilometragem_instalacao: parseFloat(automovelSelecionado?.quilometragem),
+      ID_automovel: Number(automoveis.ID),
+      Nome_automovel: automoveis.nome_automovel,
+      quilometragem_instalacao: parseFloat(automoveis.quilometragem),
       ID_pecas: Number(pecaTrocadaField?.ID),
       Nome_peca: pecaTrocadaField?.nome_peca,
       quilometragem_maxima: parseFloat(quilometragemMaximaField),
@@ -201,17 +207,11 @@ function PageCadastrarPeca() {
                     className="select"
                     value={automovelSelecionado?.ID || ""}
                     onChange={(e) => {
-                      const auto = automoveis.find((a) => String(a.ID) === String(e.target.value));
-                      setAutomovelSelecionado(auto); // salva o objeto inteiro
-                      console.log("Selecionado:", auto);
+
                     }}
                   >
-                    <option value="">Selecione o seu veículo</option>
-                    {automoveis.map((veiculo) => (
-                      <option key={veiculo.ID} value={veiculo.ID}>
-                        {veiculo.nome_automovel} - {veiculo.quilometragem} km
-                      </option>
-                    ))}
+
+                    <option>{automoveis.nome_automovel}</option>     
                   </select>
                 </div>
 
