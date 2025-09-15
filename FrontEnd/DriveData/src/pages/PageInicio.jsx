@@ -111,7 +111,25 @@ const PageInicio = () => {
                     <div className="imagemPeca">
                       {lista_imagem_pecas[manu.ID_pecas - 1]}
                     </div>
-                    <p>Vida útil</p>
+                    <div
+                      className="vidaUtilData"
+                      style={{
+                        background: `linear-gradient(92deg, rgba(5,153,0,1) ${20}%, rgba(255,255,255,1) ${20}%)`,
+                        width: "150px",
+                        height: "20px",
+                        marginBottom: "5px",
+                        borderRadius: "8px"
+                      }}
+                    ></div> 
+                    <div
+                      className="vidaUtilKM"
+                      style={{
+                        background: `linear-gradient(92deg, rgba(5,153,0,1) ${20}%, rgba(255,255,255,1) ${20}%)`,
+                        width: "150px",
+                        height: "20px",
+                        borderRadius: "8px"
+                      }}
+                    ></div>
                   </div>
                 );
               })}
