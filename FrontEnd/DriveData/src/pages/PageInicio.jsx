@@ -22,7 +22,7 @@ const PageInicio = () => {
   <img src="Filtro_de_cabine.png" alt="Imagem da peca" />,
   <img src="pneus.png" alt="Imagem da peca" />,
   <img src="Pastilhas_de_freio.png" alt="Imagem da peca" />,
-  <img src="discos_de_freio.png" alt="Imagem da peca" />,
+  <img src="disco_de_freio.png" alt="Imagem da peca" />,
   <img src="bateria.png" alt="Imagem da peca" />,
   <img src="Correia_dentada.png" alt="Imagem da peca" />,
   <img src="vela_ignição.png" alt="Imagem da peca" />,

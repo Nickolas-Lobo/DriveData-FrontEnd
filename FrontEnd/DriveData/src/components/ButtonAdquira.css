@@ -1,6 +1,17 @@
 #btnAdquira {
-   border: none;
-   font-size: 1em;
-   color: rgb(40, 42, 54);
-   cursor: pointer;
+  width: 60%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 1em;
+  color: rgb(40, 42, 54);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+#btnAdquira:hover {
+  color: #1976D2;
+  transform: scale(1.02);
 }
