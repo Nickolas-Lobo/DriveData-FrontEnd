@@ -2,23 +2,23 @@ body {
   padding: 0;
   margin: 0;
   background: linear-gradient(179deg, rgba(66, 66, 66, 1) 0%, rgba(181, 181, 181, 1) 100%);
+  font-family: Arial, sans-serif;
 }
 
 .backgroundInicio {
   width: 80%;
-  height: 85vh;
+  min-height: 85vh;
   background-color: white;
-  margin: 3em auto;
+  margin: 5em auto;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 2em;
-  gap: 2em;
+  padding: 3em;
+  gap: 3em;
 }
 
 .linhaSuperior {
   width: 100%;
-  height: 40%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -27,11 +27,10 @@ body {
 
 .containerHead {
   width: 100%;
-  height: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 2em;
+  gap: 3em;
 }
 
 .containerInfos {
@@ -41,19 +40,13 @@ body {
   align-items: center;
   background-color: #8d8d8d23;
   border-radius: 7px;
-  padding: 1.2em;
-  gap: 1.2em;
-}
-
-.imagemVeiculo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 2em;
+  gap: 2em;
 }
 
 .imagemVeiculo img {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   object-fit: cover;
   border-radius: 6px;
   background-color: #ccc;
@@ -62,7 +55,7 @@ body {
 .dadosVeiculo {
   display: flex;
   flex-direction: column;
-  gap: 0.4em;
+  gap: 0.8em;
   text-align: left;
 }
 
@@ -72,21 +65,16 @@ body {
   color: #333;
 }
 
-.dadosVeiculo span {
-  margin-bottom: 0.4em;
-  color: #555;
-}
-
 .btnAdicionarPeca {
   background-color: #cb3939;
   border: none;
   font-size: 1.1em;
-  width: 190px;
-  height: 55px;
+  width: 200px;
+  height: 60px;
   border-radius: 7px;
   align-self: center;
   cursor: pointer;
-  margin-left: 1em;
+  margin-left: 2em;
 }
 
 .btnAdicionarPeca:hover {
@@ -95,80 +83,71 @@ body {
 
 .linhaInferior {
   width: 100%;
-  height: 80%;
   display: flex;
   flex-direction: column;
-  gap: 1.2em;
+  gap: 2em;
 }
 
 .listaManutencoes {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   border-radius: 7px;
   background-color: #8d8d8d23;
-  padding: 1.2em;
-  position: relative;
+  padding: 2em;
 }
 
 .titulo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  margin-bottom: 0.8em;
+  height: 60px;
+  margin-bottom: 1.5em;
 }
 
 .titulo h1 {
   margin: 0;
-  font-size: 1.5em;
+  font-size: 1.8em;
   text-align: center;
 }
 
 .scrollWrapper {
-  position: relative;
-  height: 340px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 50px;
-  margin-top: 20px;
-  margin-bottom: -50px;
+  padding-bottom: 2em;
+  margin-top: 30px;
 }
 
 .containerCards {
   display: flex;
   flex-direction: row;
-  gap: 1.2em;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-left: 1em;
+  gap: 2em;
+  width: max-content;
 }
 
 .itemManutencao {
   flex: 0 0 auto;
   background-color: #ffffff;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 250px;
-  height: 300px; 
+  width: 270px;
+  height: 320px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center;    
-  padding: 1em;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5em;
 }
 
 .itemManutencao:hover {
-  transform: translateY(-1.5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .itemManutencao p {
-  margin: 0.5em 0;
-  font-size: 1em;
+  margin: 0.8em 0;
+  font-size: 1.1em;
   color: #333;
 }
 
@@ -176,15 +155,97 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  background-color: transparent;
+  width: 220px;
+  height: 260px; /* Aumentado de 220px para 260px */
 }
 
 .imagemPeca img {
-  width: 70%;
-  height: 70%;
-  object-fit: cover;
+  width: 90%;     /* Aumentado de 80% para 90% */
+  height: 90%;    /* Aumentado de 80% para 90% */
+  object-fit: contain; /* Alterado de cover para contain */
   border-radius: 6px;
   background-color: #ccc;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .backgroundInicio {
+    width: 95%;
+    padding: 2em;
+    gap: 2em;
+    margin: 3em auto;
+  }
+
+  .linhaSuperior,
+  .containerHead {
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+  }
+
+  .containerInfos {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2em;
+    gap: 1.5em;
+  }
+
+  .dadosVeiculo {
+    align-items: center;
+    gap: 0.6em;
+  }
+
+  .btnAdicionarPeca {
+    width: 100%;
+    margin: 2em 0 0 0;
+  }
+
+  .containerCards {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 2em;
+  }
+
+  .scrollWrapper {
+    overflow: visible;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+
+  .itemManutencao {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 2em;
+  }
+
+  .imagemPeca {
+    width: 100%;
+    height: auto;
+  }
+
+  .imagemPeca img {
+    width: 60%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo h1 {
+    font-size: 1.4em;
+  }
+
+  .btnAdicionarPeca {
+    font-size: 1em;
+    height: 50px;
+  }
+
+  .itemManutencao p {
+    font-size: 1em;
+  }
 }
