@@ -2,23 +2,21 @@ body {
   padding: 0;
   margin: 0;
   background: linear-gradient(179deg, rgba(66, 66, 66, 1) 0%, rgba(181, 181, 181, 1) 100%);
+  font-family: Arial, sans-serif;
 }
 
 .containerPageAdd {
   width: 80%;
-  height: 85vh;
+  height: 90vh;
   background-color: white;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 10px;
-  margin-top: 2.5%;
+  margin: 5em auto;
 }
 
 .telaManutencao {
   display: flex;
   gap: 30px;
   height: 90vh;
-
 }
 
 .adicionarManutenção {
@@ -116,18 +114,40 @@ tbody tr:hover {
 
 .inputs {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 25px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#filtrar{
-  margin-top: 5px;
-  height: 30px;
+.inputs .input {
+  flex: 1 1 200px;
+  min-width: 150px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#filtrar {
+  background-color: #C62828;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  font-size: 1em;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+#filtrar:hover {
+  background-color: #b63030;
 }
 
 .table-wrapper {
-  max-height: 700px; 
-  overflow-y: auto; 
+  max-height: 700px;
+  overflow-y: auto;
 }
 
 .tabela-scroll {
@@ -148,7 +168,7 @@ tbody tr:hover {
   padding: 10px 15px;
   text-align: center;
   border-bottom: 1px solid #ddd;
-  vertical-align: middle; 
+  vertical-align: middle;
 }
 
 .icons {
@@ -168,4 +188,105 @@ tbody tr:hover {
   color: rgb(0, 255, 157);
   cursor: pointer;
   font-size: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .containerPageAdd {
+    width: 95%;
+    height: auto;
+    margin-top: 2em;
+    padding: 1em;
+  }
+
+  .telaManutencao {
+    flex-direction: column;
+    height: auto;
+    gap: 2em;
+  }
+
+  .adicionarManutenção {
+    width: 100%;
+    padding: 1em;
+  }
+
+  .form-container {
+    padding: 1em;
+    gap: 1em;
+  }
+
+  .input,
+  .select {
+    width: 100%;
+    font-size: 0.95em;
+    padding: 6px 10px;
+  }
+
+  .inputs {
+    flex-direction: column;
+    gap: 1em;
+    align-items: stretch;
+  }
+
+  .inputs .input {
+    width: 100%;
+  }
+
+  #filtrar {
+    width: 200px;
+    height: 36px;
+    font-size: 0.95em;
+  }
+
+  .form-actions {
+    justify-content: center;
+  }
+
+  .buttonCadastrar {
+    width: 100%;
+    font-size: 1em;
+    padding: 8px 12px;
+  }
+
+  .buscarManutencao {
+    width: 100%;
+    padding: 1em;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .tabela-scroll {
+    min-width: 600px;
+  }
+
+  .delete-icon,
+  .update-icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input,
+  .select,
+  .buttonCadastrar,
+  #filtrar {
+    font-size: 0.95em;
+    padding: 10px;
+  }
+
+  .input,
+  .select {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 0.9em;
+  }
 }
