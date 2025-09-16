@@ -14,10 +14,12 @@ const PageInicio = () => {
   const renderedIds = new Set();
 
   function Kmsparaporcentagem(kmAtual,kmTroca, kmMaximo) {
-    console.log(kmAtual,kmTroca, kmMaximo)
+    console.log(`KM Atual: ${kmAtual}, KM Troca: ${kmTroca}, KM Máximo: ${kmMaximo}`);
     const kmRodado = kmAtual - kmTroca
     const vidaUtil = kmMaximo - kmTroca
     let porcentagem = (kmRodado / vidaUtil) * 100
+    if (porcentagem<1) porcentagem=3
+    console.log(porcentagem)
     if (porcentagem <= 50) {
       return `linear-gradient(92deg, rgba(5,153,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`; // verde
     } else if (porcentagem > 50 && porcentagem < 85) {

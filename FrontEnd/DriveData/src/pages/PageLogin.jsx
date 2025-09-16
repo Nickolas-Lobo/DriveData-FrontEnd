@@ -9,8 +9,8 @@ import { useState } from "react";
 
 const PageLogin = () => {
 
-  const [autenticador, setAutenticador]=useState("");
-  const navigate=useNavigate();
+  const [autenticador, setAutenticador] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -20,8 +20,8 @@ const PageLogin = () => {
       const res = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        credentials: "include", 
-        body: JSON.stringify({ autenticador: autenticadorNumber}),
+        credentials: "include",
+        body: JSON.stringify({ autenticador: autenticadorNumber }),
       })
       const data = await res.json();
       if (!res.ok) {
@@ -30,9 +30,22 @@ const PageLogin = () => {
       }
 
       alert(data.mensagem);
-      navigate("/pageInicio", { state: { idUsuario: data.user.ID } });
-    }catch(err) {
-      console.error("Erro no login:",err);
+      try {
+        const resAutomoveis = await fetch(`http://localhost:3000/automoveis/${data.user.ID}`, {
+          method: "GET",
+          credentials: "include",
+        })
+        const automoveis = await resAutomoveis.json()
+        console.log(automoveis)
+        navigate("/pageInicio", { state: { idUsuario: data.user.ID } });
+
+      } catch {
+        navigate("/pageAdicionarCarro",{ state: { idUsuario: data.user.ID } })
+      }
+
+
+    } catch (err) {
+      console.error("Erro no login:", err);
       alert("Número autenticador não encontrado")
     }
   }
@@ -41,15 +54,15 @@ const PageLogin = () => {
   return (
     <div className="containerPage">
       <div id='containerLogin'>
-          <img src={logo} alt="Logo DriveData" className="logo" />
-          <TextField 
-          tipo={"text"} 
+        <img src={logo} alt="Logo DriveData" className="logo" />
+        <TextField
+          tipo={"text"}
           placeholder={"N° Identificador"}
           valor={autenticador}
           setFunction={setAutenticador}
-          />
-          <Button onClick={handleLogin}/>
-          <ButtonAdquira/>
+        />
+        <Button onClick={handleLogin} />
+        <ButtonAdquira />
       </div>
     </div>
   )
