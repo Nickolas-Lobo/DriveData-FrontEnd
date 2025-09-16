@@ -2,34 +2,34 @@ body {
   padding: 0;
   margin: 0;
   background: linear-gradient(179deg, rgba(66, 66, 66, 1) 0%, rgba(181, 181, 181, 1) 100%);
+  font-family: Arial, sans-serif;
 }
 
 .containerPageAdd {
-  width: 80%;
-  height: 85vh;
+  width: 90%;
+  max-width: 1200px;
+  margin: 5em auto;
+  padding: 1em;
   background-color: white;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 10px;
-  margin-top: 2.5%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .telaManutencao {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  height: 90vh;
-
+  min-height: 90vh;
 }
 
 .adicionarManutenção {
-  width: 500px;
+  flex: 1 1 400px;
   padding: 15px;
   display: flex;
   flex-direction: column;
 }
 
 .form-container {
-  height: auto;
   padding: 20px;
   gap: 15px;
   display: flex;
@@ -47,7 +47,18 @@ body {
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 200px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #C62828;
+  box-shadow: 0 0 5px rgba(198, 40, 40, 0.5);
 }
 
 .form-actions {
@@ -63,7 +74,9 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin: 5px 0;
-  width: 200px;
+  width: 100%;
+  max-width: 400px;
+  transition: background-color 0.3s ease;
 }
 
 .buttonCadastrar:hover {
@@ -71,9 +84,8 @@ body {
 }
 
 .buscarManutencao {
-  flex: 1;
+  flex: 2 1 600px;
   padding: 15px;
-  overflow-y: auto;
 }
 
 .buscarManutencao table {
@@ -85,54 +97,47 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.buttons {
+.inputs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  margin-bottom: 25px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputs .input,
+.inputs #filtrar {
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#filtrar {
   background-color: #C62828;
   color: white;
   padding: 8px 14px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  height: 40px;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
-.buttons:hover {
+#filtrar:hover {
   background-color: #b63030;
 }
 
-thead {
-  background-color: #C62828;
-  color: white;
-}
-
-th,
-td {
-  padding: 10px 15px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-tbody tr:hover {
-  background-color: #f1f5f9;
-}
-
-.inputs {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-#filtrar{
-  margin-top: 5px;
-  height: 30px;
-}
-
 .table-wrapper {
-  max-height: 700px; 
-  overflow-y: auto; 
+  overflow-x: auto;
 }
 
 .tabela-scroll {
   width: 100%;
   border-collapse: collapse;
+  min-width: 600px;
 }
 
 .tabela-scroll thead {
@@ -148,7 +153,13 @@ tbody tr:hover {
   padding: 10px 15px;
   text-align: center;
   border-bottom: 1px solid #ddd;
-  vertical-align: middle; 
+  vertical-align: middle;
+}
+
+.tabela-scroll td {
+  white-space: nowrap;        
+  overflow: hidden;           
+  text-overflow: ellipsis;    
 }
 
 .icons {
@@ -158,14 +169,115 @@ tbody tr:hover {
   gap: 10px;
 }
 
-.delete-icon {
-  color: red;
+.delete-icon,
+.update-icon {
   cursor: pointer;
   font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.delete-icon {
+  color: red;
 }
 
 .update-icon {
   color: rgb(0, 255, 157);
-  cursor: pointer;
-  font-size: 20px;
+}
+
+.delete-icon:hover,
+.update-icon:hover {
+  transform: scale(1.1);
+}
+
+/* 📱 Responsividade aprimorada */
+@media (max-width: 1024px) {
+  .containerPageAdd {
+    width: 95%;
+    margin-top: 2em;
+    padding: 1em;
+  }
+
+  .telaManutencao {
+    flex-direction: column;
+    gap: 2em;
+  }
+
+  .adicionarManutenção,
+  .buscarManutencao {
+    width: 100%;
+    padding: 1em;
+  }
+
+  .form-container {
+    padding: 1em;
+    gap: 1em;
+  }
+
+  .input,
+  .select {
+    width: 100%;
+    font-size: 0.95em;
+    padding: 6px 10px;
+  }
+
+  .inputs {
+    flex-direction: column;
+    gap: 1em;
+    align-items: stretch;
+  }
+
+  .inputs .input,
+  .inputs #filtrar {
+    width: 100%;
+  }
+
+  #filtrar {
+    height: 40px;
+    font-size: 1em;
+  }
+
+  .buttonCadastrar {
+    width: 100%;
+    font-size: 1em;
+    padding: 8px 12px;
+  }
+
+  .table-wrapper {
+    overflow-y: visible;
+    overflow-x: auto;
+  }
+
+  .tabela-scroll {
+    min-width: 600px;
+  }
+
+  .delete-icon,
+  .update-icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input,
+  .select,
+  .buttonCadastrar,
+  #filtrar {
+    font-size: 0.95em;
+    padding: 10px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .table-wrapper {
+    overflow-y: visible;
+    overflow-x: auto;
+  }
+
+  .tabela-scroll {
+    min-width: 100%;
+  }
 }

@@ -223,7 +223,7 @@ function PageCadastrarPeca() {
                     value={pecaTrocadaField?.ID || ""}
                     onChange={(e) => {
                       const pecasalva = pecas.find((a) => String(a.ID) === String(e.target.value));
-                      setPecaTrocadaField(pecasalva); // salva o objeto inteiro
+                      setPecaTrocadaField(pecasalva);
                       console.log("Selecionado:", pecasalva);
                     }}
                   >
