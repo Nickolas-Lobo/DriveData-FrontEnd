@@ -14,6 +14,21 @@ const PageInicio = () => {
   const navigate = useNavigate();
   const renderedIds = new Set();
 
+
+  function Kmsparaporcentagem(kmAtual,kmMaximo){
+    let porcentagem
+    porcentagem=parseFloat((kmAtual/kmMaximo)*100)
+    console.log(porcentagem)
+    if (porcentagem<=40){
+      return`linear-gradient(92deg, rgba(5,153,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`
+    }else if(porcentagem>40&&porcentagem<70){
+      return`linear-gradient(92deg, rgba(255,120,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`
+    }else{
+      return`linear-gradient(92deg, rgba(255,0,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`
+    }
+  }
+
+
   const lista_imagem_pecas = [
     <img src="Fluído_de_motor.png" alt="Imagem da peca" />,
     <img src="Fluído_de_freio.png" alt="Imagem da peca" />,
@@ -114,7 +129,7 @@ const PageInicio = () => {
                     <div
                       className="vidaUtilData"
                       style={{
-                        background: `linear-gradient(92deg, rgba(5,153,0,1) ${20}%, rgba(255,255,255,1) ${20}%)`,
+                        background:Kmsparaporcentagem(automoveis.quilometragem,manu.quilometragem_maxima),
                         width: "150px",
                         height: "20px",
                         marginBottom: "5px",
