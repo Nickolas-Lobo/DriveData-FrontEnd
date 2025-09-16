@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 
 const PageInicio = () => {
-  const [ultimasPecasAdd, setUltimasPecasAdd] = useState([])
   const [automoveis, setAutomoveis] = useState([]);
   const location = useLocation();
   const [idAutomovel, setIdAutomovel] = useState(null);
@@ -14,20 +13,19 @@ const PageInicio = () => {
   const navigate = useNavigate();
   const renderedIds = new Set();
 
-
-  function Kmsparaporcentagem(kmAtual,kmMaximo){
-    let porcentagem
-    porcentagem=parseFloat((kmAtual/kmMaximo)*100)
-    console.log(porcentagem)
-    if (porcentagem<=40){
-      return`linear-gradient(92deg, rgba(5,153,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`
-    }else if(porcentagem>40&&porcentagem<70){
-      return`linear-gradient(92deg, rgba(255,120,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`
-    }else{
-      return`linear-gradient(92deg, rgba(255,0,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`
+  function Kmsparaporcentagem(kmAtual,kmTroca, kmMaximo) {
+    console.log(kmAtual,kmTroca, kmMaximo)
+    const kmRodado = kmAtual - kmTroca
+    const vidaUtil = kmMaximo - kmTroca
+    let porcentagem = (kmRodado / vidaUtil) * 100
+    if (porcentagem <= 50) {
+      return `linear-gradient(92deg, rgba(5,153,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`; // verde
+    } else if (porcentagem > 50 && porcentagem < 85) {
+      return `linear-gradient(92deg, rgba(255,120,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`; // laranja
+    } else {
+      return `linear-gradient(92deg, rgba(255,0,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`; // vermelho
     }
   }
-
 
   const lista_imagem_pecas = [
     <img src="Fluído_de_motor.png" alt="Imagem da peca" />,
@@ -126,25 +124,20 @@ const PageInicio = () => {
                     <div className="imagemPeca">
                       {lista_imagem_pecas[manu.ID_pecas - 1]}
                     </div>
-                    <div
-                      className="vidaUtilData"
-                      style={{
-                        background:Kmsparaporcentagem(automoveis.quilometragem,manu.quilometragem_maxima),
-                        width: "150px",
-                        height: "20px",
-                        marginBottom: "5px",
-                        borderRadius: "8px"
-                      }}
-                    ></div> 
-                    <div
-                      className="vidaUtilKM"
-                      style={{
-                        background: `linear-gradient(92deg, rgba(5,153,0,1) ${20}%, rgba(255,255,255,1) ${20}%)`,
-                        width: "150px",
-                        height: "20px",
-                        borderRadius: "8px"
-                      }}
-                    ></div>
+                    <p>Vida util em KM:</p>
+                    <div style={{display:"flex"}}>
+                      <div
+                        className="vidaUtilData"
+                        style={{
+                          background: Kmsparaporcentagem(automoveis.quilometragem,manu.quilometragem_instalacao ,manu.quilometragem_maxima),
+                          width: "150px",
+                          height: "10px",
+                          marginTop: "-5px",
+                          borderRadius: "8px"
+                        }}
+                      >
+                      </div>
+                    </div>
                   </div>
                 );
               })}
