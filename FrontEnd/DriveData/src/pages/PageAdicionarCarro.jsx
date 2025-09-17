@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './PageAdicionarCarro.css';
-
+import { useNavigate, useLocation } from "react-router-dom"; 
 const modelosCarros = [
   { nome: 'Conversível', imagem: 'modeloConversivel.png' },
   { nome: 'Crossover', imagem: 'modeloCrossover.png' },
@@ -13,45 +13,48 @@ const modelosCarros = [
 ];
 
 const PageAdicionarCarro = () => {
+  const navigate = useNavigate(); // 
+  const location = useLocation();
+  const { idUsuario } = location.state || {};
+  
   const [apelido, setApelido] = useState('');
   const [quilometragem, setQuilometragem] = useState('');
   const [modeloSelecionado, setModeloSelecionado] = useState('');
   const [preview, setPreview] = useState(null);
 
   const handleModeloChange = (e) => {
-    const nome = e.target.value;
-    setModeloSelecionado(nome);
-    const modelo = modelosCarros.find((m) => m.nome === nome);
-    setPreview(modelo ? modelo.imagem : null);
-  };
+  const index = parseInt(e.target.value, 10);
+  setModeloSelecionado(index);
+  setPreview(!isNaN(index) ? modelosCarros[index].imagem : null);
+};
 
-  const adicionarCarro = (e) => {
+
+  const adicionarCarro = async (e) => {
     e.preventDefault();
 
-    if (!apelido.trim()) {
-      alert('Informe um apelido para o veículo.');
-      return;
-    }
-    if (!quilometragem || Number(quilometragem) < 0) {
-      alert('Informe uma quilometragem válida.');
-      return;
-    }
-    if (!modeloSelecionado) {
-      alert('Selecione um modelo de veículo.');
-      return;
+    const novoAutomovel={
+      ID_Autenticacao:idUsuario,
+      nome_automovel:apelido,
+      ID_Icone:parseInt(modeloSelecionado),
+      quilometragem:parseFloat(quilometragem)
     }
 
-    console.log('Veículo adicionado:', {
-      apelido,
-      quilometragem,
-      modelo: modeloSelecionado,
-      imagem: preview || 'Nenhuma imagem selecionada',
-    });
+    try{
+      const resposta = await fetch("http://localhost:3000/automoveis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(novoAutomovel),
+        credentials: "include", 
+      });
+      if (!resposta.ok) throw new Error("Erro ao adiconar veiculo");
+      const data = await resposta.json();
+      navigate("/pageInicio", { state: { idUsuario: idUsuario} });
+      
+    } catch(erro){
+      console.log(erro);
 
-    setApelido('');
-    setQuilometragem('');
-    setModeloSelecionado('');
-    setPreview(null);
+    }
+
   };
 
   return (
@@ -94,8 +97,8 @@ const PageAdicionarCarro = () => {
               required
             >
               <option value="">Selecione um modelo</option>
-              {modelosCarros.map((modelo) => (
-                <option key={modelo.nome} value={modelo.nome}>
+              {modelosCarros.map((modelo,index) => (
+                <option key={modelo.nome} value={index}>
                   {modelo.nome}
                 </option>
               ))}

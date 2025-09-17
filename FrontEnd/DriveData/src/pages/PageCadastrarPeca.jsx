@@ -145,11 +145,9 @@ function PageCadastrarPeca() {
   
       const manutencaoCriada = await resposta.json();
   
-      // Formata as datas para o padrão de exibição
       manutencaoCriada.data_instalacao = formatarDataParaTela(manutencaoCriada.data_instalacao);
       manutencaoCriada.data_maxima = formatarDataParaTela(manutencaoCriada.data_maxima);
   
-      // Atualiza a tabela local
       setManutencoes((prev) => [...prev, manutencaoCriada]);
       alert("Manutenção cadastrada com sucesso!");
     } catch (err) {

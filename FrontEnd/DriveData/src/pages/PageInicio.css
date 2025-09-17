@@ -44,11 +44,12 @@ body {
   gap: 2em;
 }
 
+
 .imagemVeiculo img {
   width: 140px;
   height: 140px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 10px;
   background-color: #ccc;
 }
 

@@ -29,6 +29,17 @@ const PageInicio = () => {
     }
   }
 
+  const lista_imagens_icones = [ 
+    <img src="modeloConversivel.png" alt="Imagem do carro" />,
+    <img src="modeloCrossover.png" alt="Imagem do carro" />,
+    <img src="modeloEsportivo.png" alt="Imagem do carro" />,
+    <img src="modeloHatch.png" alt="Imagem do carro" />,
+    <img src="modeloMivivan.png" alt="Imagem do carro" />,
+    <img src="modeloPicape.png" alt="Imagem do carro" />,
+    <img src="modeloSedan.png" alt="Imagem do carro" />,
+    <img src="modeloSuv.png" alt="Imagem do carro" />,
+  ]
+
   const lista_imagem_pecas = [
     <img src="Fluído_de_motor.png" alt="Imagem da peca" />,
     <img src="Fluído_de_freio.png" alt="Imagem da peca" />,
@@ -93,7 +104,7 @@ const PageInicio = () => {
         <div className="containerHead">
           <div className="containerInfos">
             <div className="imagemVeiculo">
-              <img src="" alt="Imagem do veículo" />
+              {lista_imagens_icones[automoveis.ID_Icone]}
             </div>
             <div className="dadosVeiculo">
               <p>Modelo: {automoveis.nome_automovel}</p>
