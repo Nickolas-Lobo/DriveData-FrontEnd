@@ -149,7 +149,13 @@ function PageCadastrarPeca() {
       manutencaoCriada.data_maxima = formatarDataParaTela(manutencaoCriada.data_maxima);
   
       setManutencoes((prev) => [...prev, manutencaoCriada]);
+      
+      setPecaTrocadaField("")
+      setQuilometragemMaximaField("")
+      setDataMaximaField("")
+      
       alert("Manutenção cadastrada com sucesso!");
+
     } catch (err) {
       console.log(err);
     }
@@ -225,7 +231,7 @@ function PageCadastrarPeca() {
                       console.log("Selecionado:", pecasalva);
                     }}
                   >
-                    <option value="">Selecione o seu veículo</option>
+                    <option value="">Selecione a peça</option>
                     {pecas.map((peca) => (
                       <option key={peca.ID} value={peca.ID}>
                         {peca.nome_peca}
