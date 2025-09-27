@@ -44,6 +44,23 @@ body {
   gap: 2em;
 }
 
+.veiculo{
+  display: flex;
+  flex-direction: row;
+}
+
+.veiculo .editarVeiculo{
+  margin-left: 350px;
+  align-content: start;  
+}
+
+.edit-icon{
+  color: rgb(0, 0, 0);
+}
+
+.edit-icon:hover {
+  transform: scale(1.1);
+}
 
 .imagemVeiculo img {
   width: 140px;
@@ -188,7 +205,8 @@ body {
   }
 
   .containerInfos {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     text-align: center;
     padding: 2em;

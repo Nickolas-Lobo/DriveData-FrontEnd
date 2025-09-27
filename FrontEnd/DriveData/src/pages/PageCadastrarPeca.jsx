@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './PageCadastrarPeca.css'
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
 
 
@@ -198,6 +199,7 @@ function PageCadastrarPeca() {
 
   return (
     <div className='containerPageAdd'>
+      <RiArrowGoBackLine className="toDoBack-icon"/>
       <div className='telaManutencao'>
         <div className='adicionarManutenção'>
           <form>

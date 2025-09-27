@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './PageAdicionarCarro.css';
+import './PageAtualizarCarro.css';
 import { useNavigate, useLocation } from "react-router-dom";
 
 const modelosCarros = [
@@ -114,7 +114,7 @@ const PageAdicionarCarro = () => {
           )}
 
           <div className="acoes">
-            <button type="submit" className="btn primary">Cadastrar</button>
+            <button type="submit" className="btn primary">Atualizar</button>
             <button
               type="button"
               className="btn ghost"

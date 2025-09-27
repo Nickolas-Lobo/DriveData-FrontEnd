@@ -16,6 +16,7 @@ body {
 }
 
 .telaManutencao {
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
@@ -170,7 +171,8 @@ body {
 }
 
 .delete-icon,
-.update-icon {
+.update-icon,
+.toDoBack-icon {
   cursor: pointer;
   font-size: 20px;
   transition: transform 0.2s ease;
@@ -184,13 +186,18 @@ body {
   color: rgb(0, 255, 157);
 }
 
+.toDoBack-icon {
+  color: rgb(0, 0, 0);
+}
+
 .delete-icon:hover,
-.update-icon:hover {
+.update-icon:hover,
+.toDoBack-icon:hover {
   transform: scale(1.1);
 }
 
-/* 📱 Responsividade aprimorada */
-@media (max-width: 1024px) {
+/* Responsividade */
+@media (max-width: 1200px) {
   .containerPageAdd {
     width: 95%;
     margin-top: 2em;
