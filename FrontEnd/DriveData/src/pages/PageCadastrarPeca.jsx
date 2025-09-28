@@ -3,7 +3,7 @@ import './PageCadastrarPeca.css'
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 import { RiArrowGoBackLine } from "react-icons/ri";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const now = new Date();
@@ -17,6 +17,7 @@ function PageCadastrarPeca() {
   const [dataInstalacao, setDataInstalacao] = useState(dataFormatada)
   const location = useLocation();
   const { idUsuario } = location.state || {};
+  const navigate = useNavigate();
 
   const [filtros, setFiltros] = useState({
     id: "",
@@ -199,7 +200,7 @@ function PageCadastrarPeca() {
 
   return (
     <div className='containerPageAdd'>
-      <RiArrowGoBackLine className="toDoBack-icon"/>
+      <RiArrowGoBackLine className="toDoBack-icon" onClick={() => navigate("/pageInicio", { state: { idUsuario: idUsuario } })}/>
       <div className='telaManutencao'>
         <div className='adicionarManutenção'>
           <form>

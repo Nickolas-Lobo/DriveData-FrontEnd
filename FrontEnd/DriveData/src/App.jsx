@@ -4,6 +4,7 @@ import PageLogin from './pages/PageLogin'
 import PageAdicionarCarro from './pages/PageAdicionarCarro'
 import PageCadastrarPeca from './pages/PageCadastrarPeca'
 import PageInicio from './pages/PageInicio'
+import PageAtualizarCarro from "./pages/PageAtualizarCarro";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route path="/pageInicio" element={<PageInicio/>}/>
           <Route path="/pageCadastrarManutencao" element={<PageCadastrarPeca/>}/>
           <Route path="/pageAdicionarCarro" element={<PageAdicionarCarro/>}/>
-
+          <Route path="/pageAtualizarCarro" element={<PageAtualizarCarro/>}/>
         </Routes>
       </Router>
     </div>

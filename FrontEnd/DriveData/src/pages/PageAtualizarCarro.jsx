@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './PageAtualizarCarro.css';
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const modelosCarros = [
   { nome: 'SUV', imagem: 'modeloSuv.png' },
 ];
 
-const PageAdicionarCarro = () => {
+const PageAtualizarCarro = () => {
   const navigate = useNavigate(); // 
   const location = useLocation();
   const { idUsuario } = location.state || {};
@@ -22,18 +22,38 @@ const PageAdicionarCarro = () => {
   const [quilometragem, setQuilometragem] = useState('');
   const [modeloSelecionado, setModeloSelecionado] = useState('');
   const [preview, setPreview] = useState(null);
-
+  
+  const [carroSelecionado, setCarroSelecionado] = useState([])
+  
   const handleModeloChange = (e) => {
   const index = parseInt(e.target.value, 10);
   setModeloSelecionado(index);
   setPreview(!isNaN(index) ? modelosCarros[index].imagem : null);
 };
 
+  useEffect(() => {
+      async function buscarAutomoveis() {
+        fetch(`http://localhost:3000/automoveis/${idUsuario}`, {
+          method: "GET",
+          credentials: "include"
+        })
+          .then(resposta => {
+            if (!resposta.ok) throw new Error("Erro ao carregar os automoveis");
+            return resposta.json();
+          })
+          .then(dados => {
+            setCarroSelecionado(dados);
+          })
+          .catch(err => console.log(err))
+      }
+      buscarAutomoveis()
+    }, [])
+
 
   const adicionarCarro = async (e) => {
     e.preventDefault();
 
-    const novoAutomovel={
+    const automovelAtualizado={
       ID_Autenticacao:idUsuario,
       nome_automovel:apelido,
       ID_Icone:parseInt(modeloSelecionado),
@@ -42,9 +62,9 @@ const PageAdicionarCarro = () => {
 
     try{
       const resposta = await fetch("http://localhost:3000/automoveis", {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novoAutomovel),
+        body: JSON.stringify(automovelAtualizado),
         credentials: "include", 
       });
       if (!resposta.ok) throw new Error("Erro ao adiconar veiculo");
@@ -71,7 +91,7 @@ const PageAdicionarCarro = () => {
             <span className="labelText">Apelido do veículo</span>
             <input
               type="text"
-              placeholder="Ex: Honda Civic"
+              placeholder={carroSelecionado.nome_automovel}
               value={apelido}
               onChange={(e) => setApelido(e.target.value)}
               required
@@ -82,7 +102,7 @@ const PageAdicionarCarro = () => {
             <span className="labelText">Quilometragem (km)</span>
             <input
               type="number"
-              placeholder="Ex: 120000"
+              placeholder={carroSelecionado.quilometragem}
               value={quilometragem}
               onChange={(e) => setQuilometragem(e.target.value)}
               min="0"
@@ -134,4 +154,4 @@ const PageAdicionarCarro = () => {
   );
 };
 
-export default PageAdicionarCarro;
+export default PageAtualizarCarro;
