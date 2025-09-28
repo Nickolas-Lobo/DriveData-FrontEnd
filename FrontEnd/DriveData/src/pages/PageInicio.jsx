@@ -107,7 +107,7 @@ const PageInicio = () => {
             </div>
             <div className="veiculo">
               <div className="dadosVeiculo">
-                <p>Modelo: {automoveis.nome_automovel}</p>
+                <p>Apelido: {automoveis.nome_automovel}</p>
                 <p>Quilometragem Atual: {automoveis.quilometragem}</p>
                 <p>Última Peça Trocada: {ultimasManutencoes[0]?.Nome_peca}</p>
               </div>

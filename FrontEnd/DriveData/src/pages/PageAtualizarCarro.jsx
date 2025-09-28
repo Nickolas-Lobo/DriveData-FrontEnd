@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './PageAtualizarCarro.css';
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const modelosCarros = [
@@ -80,10 +81,13 @@ const PageAtualizarCarro = () => {
 
   return (
     <div className="telaAdicionarVeiculo">
+      
       <div className="painelAdicionar">
+        <RiArrowGoBackLine className="toDoBack-icon"/>
+        <br />
         <header className="cabecalho">
-          <h2>Adicionar Veículo</h2>
-          <p className="sub">Cadastre seu veículo rapidamente</p>
+          <h2>Atualizar Veículo</h2>
+          <p className="sub">Atualize seu veículo rapidamente</p>
         </header>
 
         <form onSubmit={adicionarCarro} className="formAdicionarVeiculo" noValidate>
