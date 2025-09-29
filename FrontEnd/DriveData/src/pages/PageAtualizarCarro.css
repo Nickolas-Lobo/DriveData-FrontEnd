@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-.telaAdicionarVeiculo {
+.telaAtualizarVeiculo {
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -15,7 +15,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.painelAdicionar {
+.painelAtualizar {
   width: 100%;
   max-width: 450px;
   background: #fff;

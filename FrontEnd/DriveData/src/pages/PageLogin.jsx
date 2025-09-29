@@ -13,8 +13,12 @@ const PageLogin = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
+    if (!autenticador.trim()) {
+      alert("Por favor, preencha o número identificador.");
+      return;
+    }
 
+    try {
       const autenticadorNumber = Number(autenticador);
 
       const res = await fetch("http://localhost:3000/login", {
@@ -22,7 +26,8 @@ const PageLogin = () => {
         headers: { "Content-type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ autenticador: autenticadorNumber }),
-      })
+      });
+
       const data = await res.json();
       if (!res.ok) {
         alert(data.mensagem || "Número autenticador inválido!");
@@ -34,21 +39,19 @@ const PageLogin = () => {
         const resAutomoveis = await fetch(`http://localhost:3000/automoveis/${data.user.ID}`, {
           method: "GET",
           credentials: "include",
-        })
-        const automoveis = await resAutomoveis.json()
-        console.log(automoveis)
+        });
+        const automoveis = await resAutomoveis.json();
+        console.log(automoveis);
         navigate("/pageInicio", { state: { idUsuario: data.user.ID } });
-
       } catch {
-        navigate("/pageAdicionarCarro",{ state: { idUsuario: data.user.ID } })
+        navigate("/pageAdicionarCarro", { state: { idUsuario: data.user.ID } });
       }
-
 
     } catch (err) {
       console.error("Erro no login:", err);
-      alert("Número autenticador não encontrado")
+      alert("Número autenticador não encontrado");
     }
-  }
+  };
 
 
   return (

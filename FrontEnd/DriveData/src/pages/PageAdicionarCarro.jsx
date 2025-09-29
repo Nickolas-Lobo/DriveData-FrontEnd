@@ -17,46 +17,50 @@ const PageAdicionarCarro = () => {
   const navigate = useNavigate(); // 
   const location = useLocation();
   const { idUsuario } = location.state || {};
-  
+
   const [apelido, setApelido] = useState('');
   const [quilometragem, setQuilometragem] = useState('');
   const [modeloSelecionado, setModeloSelecionado] = useState('');
   const [preview, setPreview] = useState(null);
 
   const handleModeloChange = (e) => {
-  const index = parseInt(e.target.value, 10);
-  setModeloSelecionado(index);
-  setPreview(!isNaN(index) ? modelosCarros[index].imagem : null);
-};
+    const index = parseInt(e.target.value, 10);
+    setModeloSelecionado(index);
+    setPreview(!isNaN(index) ? modelosCarros[index].imagem : null);
+  };
 
 
   const adicionarCarro = async (e) => {
     e.preventDefault();
 
-    const novoAutomovel={
-      ID_Autenticacao:idUsuario,
-      nome_automovel:apelido,
-      ID_Icone:parseInt(modeloSelecionado),
-      quilometragem:parseFloat(quilometragem)
+    // Validação manual
+    if (!apelido.trim() || !quilometragem || modeloSelecionado === '') {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
     }
 
-    try{
+    const novoAutomovel = {
+      ID_Autenticacao: idUsuario,
+      nome_automovel: apelido,
+      ID_Icone: parseInt(modeloSelecionado),
+      quilometragem: parseFloat(quilometragem)
+    };
+
+    try {
       const resposta = await fetch("http://localhost:3000/automoveis", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novoAutomovel),
-        credentials: "include", 
+        credentials: "include",
       });
-      if (!resposta.ok) throw new Error("Erro ao adiconar veiculo");
+      if (!resposta.ok) throw new Error("Erro ao adicionar veículo");
       const data = await resposta.json();
-      navigate("/pageInicio", { state: { idUsuario: idUsuario} });
-      
-    } catch(erro){
+      navigate("/pageInicio", { state: { idUsuario: idUsuario } });
+    } catch (erro) {
       console.log(erro);
-
     }
-
   };
+
 
   return (
     <div className="telaAdicionarVeiculo">
@@ -98,7 +102,7 @@ const PageAdicionarCarro = () => {
               required
             >
               <option value="">Selecione um modelo</option>
-              {modelosCarros.map((modelo,index) => (
+              {modelosCarros.map((modelo, index) => (
                 <option key={modelo.nome} value={index}>
                   {modelo.nome}
                 </option>

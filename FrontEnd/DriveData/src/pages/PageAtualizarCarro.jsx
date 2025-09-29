@@ -51,38 +51,58 @@ const PageAtualizarCarro = () => {
     }, [])
 
 
-  const adicionarCarro = async (e) => {
-    e.preventDefault();
+  const atualizarCarro = async (e) => {
+  e.preventDefault();
 
-    const automovelAtualizado={
-      ID_Autenticacao:idUsuario,
-      nome_automovel:apelido,
-      ID_Icone:parseInt(modeloSelecionado),
-      quilometragem:parseFloat(quilometragem)
-    }
+  // 🔎 Validações
+  if (!apelido.trim()) {
+    alert("O apelido do veículo não pode estar em branco!");
+    return;
+  }
 
-    try{
-      const resposta = await fetch("http://localhost:3000/automoveis", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(automovelAtualizado),
-        credentials: "include", 
-      });
-      if (!resposta.ok) throw new Error("Erro ao adiconar veiculo");
-      const data = await resposta.json();
-      navigate("/pageInicio", { state: { idUsuario: idUsuario} });
-      
-    } catch(erro){
-      console.log(erro);
+  if (!quilometragem || isNaN(quilometragem) || parseFloat(quilometragem) < 0) {
+    alert("Informe uma quilometragem válida (maior que 0)!");
+    return;
+  }
 
-    }
+  if (modeloSelecionado === "" || isNaN(parseInt(modeloSelecionado))) {
+    alert("Selecione um modelo de veículo!");
+    return;
+  }
 
+  const automovelAtualizado = {
+    ID_Autenticacao: idUsuario,
+    nome_automovel: apelido.trim(),
+    ID_Icone: parseInt(modeloSelecionado),
+    quilometragem: parseFloat(quilometragem)
   };
 
+  try {
+    const resposta = await fetch("http://localhost:3000/automoveis", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(automovelAtualizado),
+      credentials: "include",
+    });
+
+    if (!resposta.ok) throw new Error("Erro ao atualizar veículo");
+
+    await resposta.json();
+
+    alert("Veículo atualizado com sucesso!");
+    navigate("/pageInicio", { state: { idUsuario: idUsuario } });
+
+  } catch (erro) {
+    console.log(erro);
+    alert("Erro ao atualizar veículo, tente novamente.");
+  }
+};
+
+
   return (
-    <div className="telaAdicionarVeiculo">
+    <div className="telaAtualizarVeiculo">
       
-      <div className="painelAdicionar">
+      <div className="painelAtualizar">
         <RiArrowGoBackLine className="toDoBack-icon"/>
         <br />
         <header className="cabecalho">
@@ -90,7 +110,7 @@ const PageAtualizarCarro = () => {
           <p className="sub">Atualize seu veículo rapidamente</p>
         </header>
 
-        <form onSubmit={adicionarCarro} className="formAdicionarVeiculo" noValidate>
+        <form onSubmit={atualizarCarro} className="formAdicionarVeiculo" noValidate>
           <label className="field">
             <span className="labelText">Apelido do veículo</span>
             <input

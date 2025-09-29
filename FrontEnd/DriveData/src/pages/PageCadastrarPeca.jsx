@@ -63,7 +63,7 @@ function PageCadastrarPeca() {
     async function buscarPecas() {
       fetch("http://localhost:3000/pecas", {
         method: "GET",
-        credentials: "include", 
+        credentials: "include",
 
       })
         .then(resposta => {
@@ -82,7 +82,7 @@ function PageCadastrarPeca() {
     async function pegarManutencoes() {
       fetch(`http://localhost:3000/manutencoes/${idAutomovel}`, {
         method: "GET",
-        credentials: "include", 
+        credentials: "include",
 
       })
         .then(resposta => {
@@ -100,81 +100,103 @@ function PageCadastrarPeca() {
 
   const criarManutencao = async (e) => {
     e.preventDefault();
-  
+
+    // validação
+    if (!pecaTrocadaField || !pecaTrocadaField.ID) {
+      alert("Selecione uma peça antes de cadastrar!");
+      return;
+    }
+
+    if (!quilometragemMaximaField || isNaN(quilometragemMaximaField)) {
+      alert("Informe uma quilometragem máxima válida!");
+      return;
+    }
+
+    if (!dataMaximaField || isNaN(dataMaximaField)) {
+      alert("Informe o tempo máximo de uso (em meses)!");
+      return;
+    }
+
+    if (!automoveis || !automoveis.ID) {
+      alert("Selecione um veículo válido!");
+      return;
+    }
+
+    // funções auxiliares
     function formatarDataParaBD(dataBR) {
       const [dia, mes, ano] = dataBR.split("/");
       return `${ano}-${mes}-${dia}`;
     }
-  
+
     function adicionarMeses(dataStr, meses) {
       const [dia, mes, ano] = dataStr.split("/").map(Number);
       const data = new Date(ano, mes - 1, dia);
       data.setMonth(data.getMonth() + Number(meses));
-      
+
       const anoBD = data.getFullYear();
       const mesBD = String(data.getMonth() + 1).padStart(2, "0");
       const diaBD = String(data.getDate()).padStart(2, "0");
-      
+
       return `${anoBD}-${mesBD}-${diaBD}`;
     }
-  
+
     function formatarDataParaTela(dataBD) {
       const [ano, mes, dia] = dataBD.split("-");
       return `${dia}/${mes}/${ano}`;
     }
-    
-    let somaQuilometragem = (parseFloat(quilometragemMaximaField)+ parseFloat(automoveis.quilometragem))
+
+    let somaQuilometragem = (parseFloat(quilometragemMaximaField) + parseFloat(automoveis.quilometragem));
 
     const novamanutencao = {
       ID_automovel: Number(automoveis.ID),
       Nome_automovel: automoveis.nome_automovel,
-      quilometragem_instalacao:(automoveis.quilometragem),
-      ID_pecas: Number(pecaTrocadaField?.ID),
-      Nome_peca: pecaTrocadaField?.nome_peca,
+      quilometragem_instalacao: automoveis.quilometragem,
+      ID_pecas: Number(pecaTrocadaField.ID),
+      Nome_peca: pecaTrocadaField.nome_peca,
       quilometragem_maxima: parseFloat(somaQuilometragem),
       data_maxima: adicionarMeses(dataInstalacao, dataMaximaField),
       data_instalacao: formatarDataParaBD(dataInstalacao),
     };
-  
+
     try {
       const resposta = await fetch("http://localhost:3000/manutencoes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novamanutencao),
-        credentials: "include", 
-
+        credentials: "include",
       });
-  
+
       if (!resposta.ok) throw new Error("Erro ao cadastrar manutenção");
-  
+
       const manutencaoCriada = await resposta.json();
-  
+
       manutencaoCriada.data_instalacao = formatarDataParaTela(manutencaoCriada.data_instalacao);
       manutencaoCriada.data_maxima = formatarDataParaTela(manutencaoCriada.data_maxima);
-  
-      setManutencoes((prev) => [...prev, manutencaoCriada]);
-      
-      setPecaTrocadaField("")
-      setQuilometragemMaximaField("")
-      setDataMaximaField("")
-      
-      alert("Manutenção cadastrada com sucesso!");
 
+      setManutencoes((prev) => [...prev, manutencaoCriada]);
+
+      // limpa campos
+      setPecaTrocadaField("");
+      setQuilometragemMaximaField("");
+      setDataMaximaField("");
+
+      alert("Manutenção cadastrada com sucesso!");
     } catch (err) {
       console.log(err);
     }
   };
-  
-  
+
+
+
   const deletarManutencao = async (id) => {
-    fetch(`http://localhost:3000/manutencoes/${id}`,{
+    fetch(`http://localhost:3000/manutencoes/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      credentials: "include", 
+      credentials: "include",
 
     })
-      .then((res)=> {
-        if (!res.ok) throw new Error ("Erro ao deletar manutenção")
+      .then((res) => {
+        if (!res.ok) throw new Error("Erro ao deletar manutenção")
         return res.json();
       })
       .then((resposta) => {
@@ -182,7 +204,7 @@ function PageCadastrarPeca() {
         setDadosTabela(prev => prev.filter(m => m.ID !== id));
         alert(resposta.mensagem);
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.error(err)
       })
   }
@@ -202,7 +224,7 @@ function PageCadastrarPeca() {
 
   return (
     <div className='containerPageAdd'>
-      <RiArrowGoBackLine className="toDoBack-icon" onClick={() => navigate("/pageInicio", { state: { idUsuario: idUsuario } })}/>
+      <RiArrowGoBackLine className="toDoBack-icon" onClick={() => navigate("/pageInicio", { state: { idUsuario: idUsuario } })} />
       <div className='telaManutencao'>
         <div className='adicionarManutenção'>
           <form>
@@ -220,7 +242,7 @@ function PageCadastrarPeca() {
                     }}
                   >
 
-                    <option>Modelo: {automoveis.nome_automovel}- KM:{automoveis.quilometragem} </option>     
+                    <option>Modelo: {automoveis.nome_automovel}- KM:{automoveis.quilometragem} </option>
                   </select>
                 </div>
 
@@ -308,7 +330,7 @@ function PageCadastrarPeca() {
                     <td>{row.quilometragem_maxima}</td>
                     <td>{row.data_maxima}</td>
                     <td className="icons">
-                      <MdDelete onClick={()=>deletarManutencao(row.ID)} className="delete-icon" />
+                      <MdDelete onClick={() => deletarManutencao(row.ID)} className="delete-icon" />
                     </td>
                   </tr>
                 ))}
