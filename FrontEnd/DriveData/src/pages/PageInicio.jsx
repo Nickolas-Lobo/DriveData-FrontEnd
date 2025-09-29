@@ -1,8 +1,7 @@
 import "./PageInicio.css"
 import React from 'react'
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { MdEdit } from "react-icons/md";
+import { data, useLocation, useNavigate } from "react-router-dom";
 
 
 const PageInicio = () => {
@@ -14,11 +13,46 @@ const PageInicio = () => {
   const navigate = useNavigate();
   const renderedIds = new Set();
 
-  function Kmsparaporcentagem(kmAtual, kmTroca, kmMaximo) {
+  function parseData(dataStr) {
+    if (!dataStr) return null;
+    const [dia, mes, ano] = dataStr.split('/');
+    return new Date(`${ano}-${mes}-${dia}T00:00:00`);
+  }
+  
+
+  function porcentagemPorData(dataInstalacao, dataMaxima) {
+    const hoje = new Date();
+
+    const inicio = parseData(dataInstalacao);
+    const fim = parseData(dataMaxima);
+
+    if (!inicio || !fim || isNaN(inicio) || isNaN(fim)) {
+        return 'linear-gradient(92deg, rgba(200,200,200,0.5) 100%, rgba(255,255,255,1) 100%)';
+    }
+
+    const vidaUtilDias = (fim - inicio) / (1000 * 60 * 60 * 24);
+    const diasPassados = (hoje - inicio) / (1000 * 60 * 60 * 24);
+
+    let porcentagem = (diasPassados / vidaUtilDias) * 100;
+
+    if (porcentagem < 1) porcentagem = 3;
+    if (porcentagem > 100) porcentagem = 100;
+
+    if (porcentagem <= 50) {
+        return `linear-gradient(92deg, rgba(5,153,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`;
+    } else if (porcentagem > 50 && porcentagem < 85) {
+        return `linear-gradient(92deg, rgba(255,120,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`;
+    } else {
+        return `linear-gradient(92deg, rgba(255,0,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`;
+    }
+}
+
+  function Kmsparaporcentagem(kmAtual,kmTroca, kmMaximo) {
     const kmRodado = kmAtual - kmTroca
     const vidaUtil = kmMaximo - kmTroca
     let porcentagem = (kmRodado / vidaUtil) * 100
-    if (porcentagem < 1) porcentagem = 3
+    if (porcentagem<1) porcentagem=3
+    console.log(porcentagem)
     if (porcentagem <= 50) {
       return `linear-gradient(92deg, rgba(5,153,0,1) ${porcentagem}%, rgba(255,255,255,1) ${porcentagem}%)`; // verde
     } else if (porcentagem > 50 && porcentagem < 85) {
@@ -28,7 +62,7 @@ const PageInicio = () => {
     }
   }
 
-  const lista_imagens_icones = [
+  const lista_imagens_icones = [ 
     <img src="modeloConversivel.png" alt="Imagem do carro" />,
     <img src="modeloCrossover.png" alt="Imagem do carro" />,
     <img src="modeloEsportivo.png" alt="Imagem do carro" />,
@@ -105,13 +139,11 @@ const PageInicio = () => {
             <div className="imagemVeiculo">
               {lista_imagens_icones[automoveis.ID_Icone]}
             </div>
-            <div className="veiculo">
-              <div className="dadosVeiculo">
-                <p>Apelido: {automoveis.nome_automovel}</p>
-                <p>Quilometragem Atual: {automoveis.quilometragem}</p>
-                <p>Última Peça Trocada: {ultimasManutencoes[0]?.Nome_peca}</p>
-              </div>
-              <div className="editarVeiculo"><MdEdit className="edit-icon" onClick={() => navigate("/pageAtualizarCarro", { state: { idUsuario: idUsuario } })}/></div>
+            <div className="dadosVeiculo">
+              <p>Modelo: {automoveis.nome_automovel}</p>
+              <p>Quilometragem Atual: {automoveis.quilometragem}</p>
+              <p>Última Peça Trocada: {ultimasManutencoes[0]?.Nome_peca}</p>
+
             </div>
           </div>
           <button className="btnAdicionarPeca" onClick={() => navigate("/pageCadastrarManutencao", { state: { idUsuario: idUsuario } })}>Adicionar Manutenção</button>
@@ -139,11 +171,11 @@ const PageInicio = () => {
                       {lista_imagem_pecas[manu.ID_pecas - 1]}
                     </div>
                     <p>Vida util em KM:</p>
-                    <div style={{ display: "flex" }}>
+                    <div style={{display:"flex"}}>
                       <div
                         className="vidaUtilData"
                         style={{
-                          background: Kmsparaporcentagem(automoveis.quilometragem, manu.quilometragem_instalacao, manu.quilometragem_maxima),
+                          background: porcentagemPorData(manu.data_instalacao,manu.data_maxima),
                           width: "150px",
                           height: "10px",
                           marginTop: "-5px",
@@ -152,7 +184,9 @@ const PageInicio = () => {
                       >
                       </div>
                     </div>
+                    
                   </div>
+                  
                 );
               })}
             </div>

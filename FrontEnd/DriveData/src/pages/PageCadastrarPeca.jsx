@@ -122,14 +122,16 @@ function PageCadastrarPeca() {
       const [ano, mes, dia] = dataBD.split("-");
       return `${dia}/${mes}/${ano}`;
     }
-  
+    
+    let somaQuilometragem = (parseFloat(quilometragemMaximaField)+ parseFloat(automoveis.quilometragem))
+
     const novamanutencao = {
       ID_automovel: Number(automoveis.ID),
       Nome_automovel: automoveis.nome_automovel,
       quilometragem_instalacao:(automoveis.quilometragem),
       ID_pecas: Number(pecaTrocadaField?.ID),
       Nome_peca: pecaTrocadaField?.nome_peca,
-      quilometragem_maxima: parseFloat(quilometragemMaximaField),
+      quilometragem_maxima: parseFloat(somaQuilometragem),
       data_maxima: adicionarMeses(dataInstalacao, dataMaximaField),
       data_instalacao: formatarDataParaBD(dataInstalacao),
     };
@@ -277,8 +279,6 @@ function PageCadastrarPeca() {
         <div className='buscarManutencao'>
           <div className='inputs'>
 
-            <input type="text" className='input' placeholder='Nome do Automóvel' value={filtros.nome_automovel} onChange={(e) => setFiltros({ ...filtros, nome_automovel: e.target.value })} />
-
             <input type="text" className='input' placeholder='Nome da Peça' value={filtros.nome_peca} onChange={(e) => setFiltros({ ...filtros, nome_peca: e.target.value })} />
 
             <input type="text" className='input' placeholder='Quilometragem Máxima' value={filtros.quilometragem_maxima} onChange={(e) => setFiltros({ ...filtros, quilometragem_maxima: e.target.value })} />
@@ -309,7 +309,6 @@ function PageCadastrarPeca() {
                     <td>{row.data_maxima}</td>
                     <td className="icons">
                       <MdDelete onClick={()=>deletarManutencao(row.ID)} className="delete-icon" />
-                      <GrUpdate className="update-icon" />
                     </td>
                   </tr>
                 ))}
