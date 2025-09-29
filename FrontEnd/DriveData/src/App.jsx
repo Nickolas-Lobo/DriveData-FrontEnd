@@ -5,6 +5,7 @@ import PageAdicionarCarro from './pages/PageAdicionarCarro'
 import PageCadastrarPeca from './pages/PageCadastrarPeca'
 import PageInicio from './pages/PageInicio'
 import PageAtualizarCarro from "./pages/PageAtualizarCarro";
+import PageQrCode from "./pages/PageQrCode";
 
 function App() {
   return (
