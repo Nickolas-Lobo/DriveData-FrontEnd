@@ -71,6 +71,7 @@ const PageAtualizarCarro = () => {
   }
 
   const automovelAtualizado = {
+    ID:carroSelecionado.ID,
     ID_Autenticacao: idUsuario,
     nome_automovel: apelido.trim(),
     ID_Icone: parseInt(modeloSelecionado),
@@ -78,7 +79,7 @@ const PageAtualizarCarro = () => {
   };
 
   try {
-    const resposta = await fetch("http://localhost:3000/automoveis", {
+    const resposta = await fetch(`http://localhost:3000/automoveis`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(automovelAtualizado),
@@ -99,11 +100,13 @@ const PageAtualizarCarro = () => {
 };
 
 
+
+
   return (
     <div className="telaAtualizarVeiculo">
       
       <div className="painelAtualizar">
-        <RiArrowGoBackLine className="toDoBack-icon"/>
+        <RiArrowGoBackLine className="toDoBack-icon" onClick={() => navigate("/pageInicio",{ state: { idUsuario: idUsuario } })}/>
         <br />
         <header className="cabecalho">
           <h2>Atualizar Veículo</h2>

@@ -146,8 +146,8 @@ const PageInicio = () => {
               <p>Última Peça Trocada: {ultimasManutencoes[0]?.Nome_peca}</p>
             </div>
             <div className="botoesVeiculo">
-                <MdEdit className="edit-icon" />
-                <RiLogoutBoxRFill className="logout-icon" />
+                <MdEdit className="edit-icon" onClick={() => navigate("/pageAtualizarCarro", { state: { idUsuario: idUsuario } })}/>
+                <RiLogoutBoxRFill className="logout-icon" onClick={() => navigate("/")} />
               </div>
           </div>
           <button className="btnAdicionarPeca" onClick={() => navigate("/pageCadastrarManutencao", { state: { idUsuario: idUsuario } })}>Adicionar Manutenção</button>

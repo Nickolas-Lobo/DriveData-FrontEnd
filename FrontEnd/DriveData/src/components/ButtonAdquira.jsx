@@ -1,7 +1,7 @@
 import "./ButtonAdquira.css"
 
-export const ButtonAdquira = () => {
+export const ButtonAdquira = ({action}) => {
   return (
-    <button id="btnAdquira">Não Possui N° Indentificador?</button> 
+    <button onClick={action} id="btnAdquira">Não Possui N° Indentificador?</button> 
 )
 }

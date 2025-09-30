@@ -41,7 +41,6 @@ const PageLogin = () => {
           credentials: "include",
         });
         const automoveis = await resAutomoveis.json();
-        console.log(automoveis);
         navigate("/pageInicio", { state: { idUsuario: data.user.ID } });
       } catch {
         navigate("/pageAdicionarCarro", { state: { idUsuario: data.user.ID } });
@@ -65,7 +64,7 @@ const PageLogin = () => {
           setFunction={setAutenticador}
         />
         <Button onClick={handleLogin} />
-        <ButtonAdquira />
+        <ButtonAdquira action={()=> navigate("/pageQrCode")}/>
       </div>
     </div>
   )

@@ -17,6 +17,7 @@ function App() {
           <Route path="/pageCadastrarManutencao" element={<PageCadastrarPeca/>}/>
           <Route path="/pageAdicionarCarro" element={<PageAdicionarCarro/>}/>
           <Route path="/pageAtualizarCarro" element={<PageAtualizarCarro/>}/>
+          <Route path="/pageQrCode" element={<PageQrCode/>}/>
         </Routes>
       </Router>
     </div>
