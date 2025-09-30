@@ -272,7 +272,7 @@ function PageCadastrarPeca() {
                   <input
                     className="input"
                     value={quilometragemMaximaField}
-                    type="text"
+                    type="number"
                     placeholder="Quilometragem máxima"
                     onChange={(e) => setQuilometragemMaximaField(e.target.value)}
                   />
@@ -283,7 +283,7 @@ function PageCadastrarPeca() {
                   <input
                     className="input"
                     value={dataMaximaField}
-                    type="text"
+                    type="number"
                     placeholder="Data máxima de uso"
                     onChange={(e) => setDataMaximaField(e.target.value)}
                   />
@@ -318,7 +318,7 @@ function PageCadastrarPeca() {
                   <th>Quilometragem da Instalação</th>
                   <th>Quilometragem Máxima</th>
                   <th>Data Máxima</th>
-                  <th>Ações</th>
+                  <th>Ação</th>
                 </tr>
               </thead>
               <tbody>
